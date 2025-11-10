@@ -17,14 +17,16 @@ return new class extends Migration
         Schema::create('incidents', function (Blueprint $table) {
             $table->id();
             $table->string('titre');
+            $table->string('slug')->unique();
             $table->string('description');
-            $table->string('statut');
+            $table->boolean('statut')->default(false);
             $table->string('priorite');
-            $table->foreignIdFor(User::class);
+            $table->string('image')->nullable();
+            $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Categorie::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Piece::class)->constrained()->nullable();
+            $table->foreignIdFor(Piece::class)->nullable();
             $table->timestamps();
-            $table->timestamp('Ended_at')->nullable();
+            $table->timestamp('ended_at')->nullable();
         });
     }
 

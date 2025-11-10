@@ -11,11 +11,34 @@ export interface SharedData {
 
 export interface User {
     id: number;
+    matricule: string;
     name: string;
     email: string;
+    telephone: string;
     avatar?: string;
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
-    [key: string]: unknown; // This allows for additional properties...
+    agence_id: number;
+    service_id: number;
+    [key: string]: unknown; // This allows for additional properties..
+    
+}
+
+type Priorite = 'elevée' | 'moyenne' |'basse' 
+export interface Incident {
+    [key: string]: unknown; // This allows for additional properties..
+    id: number;
+    titre: string;
+    slug: string | null
+    description: string
+    statut: boolean
+    priorite: Priorite
+    image?: string | null
+    user_id: number
+    categorie_id: number
+    piece_id: number
+    created_at: string
+    updated_at: string
+    ended_at: string
 }

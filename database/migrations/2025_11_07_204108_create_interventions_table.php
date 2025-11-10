@@ -19,8 +19,8 @@ return new class extends Migration
             $table->integer('moyenne_etoile');
             $table->integer('nombre_avis');
             $table->integer('nombre_like');
-            $table->foreignIdFor(Technicien::class);
-            $table->foreignIdFor(Incident::class);
+            $table->foreignIdFor(Technicien::class)->constrained();
+            $table->foreignIdFor(Incident::class)->constrained();
             $table->timestamps();
         });
     }

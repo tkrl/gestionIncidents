@@ -3,9 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Agence;
+use App\Models\Service;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -18,9 +21,13 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'matricule',
         'name',
         'email',
+        'telephone',
         'password',
+        'agence_id',
+        'service_id'
     ];
 
     /**
@@ -44,5 +51,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function Agence(): BelongsTo
+    {
+        return $this->belongsTo(Agence::class);
+    }
+
+    public function Service(): BelongsTo
+    {
+        return $this->belongsTo(Service::class);
     }
 }

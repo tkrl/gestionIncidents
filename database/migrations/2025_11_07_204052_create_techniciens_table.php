@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('telephone')->unique();
             $table->string('password');
-            $table->foreignIdFor(Equipe::class);
+            $table->foreignIdFor(Equipe::class)->constrained();
             $table->timestamps();
         });
     }

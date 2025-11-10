@@ -14,8 +14,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('likes', function (Blueprint $table) {
-            $table->foreignIdFor(Intervention::class);
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(Intervention::class)->constrained();
+            $table->foreignIdFor(User::class)->constrained();
             $table->primary(['intervention_id', 'user_id']);
             $table->timestamps();
         });
