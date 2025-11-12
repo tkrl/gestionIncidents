@@ -18,7 +18,7 @@ class Agence extends Model
         'adresse'
     ];
 
-    public function Users(): HasMany
+    public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }

@@ -18,7 +18,7 @@ class Incident extends Model
 
         'titre',
         'slug',
-        'desciption',
+        'description',
         'statut',
         'priorite',
         'image',
@@ -29,12 +29,12 @@ class Incident extends Model
     ];
 
 
-    public function Categorie(): BelongsTo
+    public function categorie(): BelongsTo
     {
         return $this->belongsTo(Categorie::class);
     }
 
-    public function User(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

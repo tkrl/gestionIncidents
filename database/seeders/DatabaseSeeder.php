@@ -39,6 +39,14 @@ class DatabaseSeeder extends Seeder
             'password' => '0000',
             'agence_id' => 1,
             'service_id' =>1
+        ],[
+            'matricule' => '22TC6G',
+            'name' => 'Fabien Bone',
+            'email' => 'fabien@bone.com',
+            'telephone' => '83972789',
+            'password' => '0000',
+            'agence_id' => 1,
+            'service_id' =>1
         ]);
 
 

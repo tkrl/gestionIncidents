@@ -17,7 +17,7 @@ class Service extends Model
         'description'
     ];
 
-    public function Users(): HasMany
+    public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }

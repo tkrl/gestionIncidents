@@ -2,6 +2,10 @@ export interface Auth {
     user: User;
 }
 
+export interface Users {
+    users: User[];
+}
+
 export interface SharedData {
     name: string;
     quote: { message: string; author: string };
@@ -25,7 +29,12 @@ export interface User {
     
 }
 
-type Priorite = 'elevée' | 'moyenne' |'basse' 
+type Priorite = 'elevée' | 'moyenne' |'basse'
+
+type category = {
+    id: number
+    nom: string
+}
 export interface Incident {
     [key: string]: unknown; // This allows for additional properties..
     id: number;
@@ -36,9 +45,26 @@ export interface Incident {
     priorite: Priorite
     image?: string | null
     user_id: number
+    categorie: category;
     categorie_id: number
-    piece_id: number
+    piece_id?: number
     created_at: string
     updated_at: string
     ended_at: string
+    user : User
 }
+
+export interface Incidents {
+    incidents: Incident[]
+}
+
+export interface Categorie {
+    id: number,
+    nom: string
+}
+
+export interface Categories {
+    categories: Categorie[]
+}
+
+

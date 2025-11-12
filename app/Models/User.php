@@ -5,7 +5,9 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Agence;
 use App\Models\Service;
+use App\Models\Incident;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -53,13 +55,18 @@ class User extends Authenticatable
         ];
     }
 
-    public function Agence(): BelongsTo
+    public function agence(): BelongsTo
     {
         return $this->belongsTo(Agence::class);
     }
 
-    public function Service(): BelongsTo
+    public function service(): BelongsTo
     {
         return $this->belongsTo(Service::class);
+    }
+
+    public function incidents(): HasMany
+    {
+        return $this->hasMany(Incident::class);
     }
 }

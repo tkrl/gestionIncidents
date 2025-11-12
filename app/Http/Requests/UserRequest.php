@@ -2,10 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Incident;
 use Illuminate\Foundation\Http\FormRequest;
 
-class IncidentRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,15 +21,10 @@ class IncidentRequest extends FormRequest
      */
     public function rules(): array
     {
-        
         return [
-            'titre' => ['required'],
-            'slug' => ["unique:incidents,slug"],
-            'description' => ['required'],
-            'priorite' => ['required'],
-            'image' => ['image'],
-            'user_id',
-            'categorie_id' => ['required'],
+            'matricule' => ['required', 'min:5'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'min:4']
         ];
     }
 }

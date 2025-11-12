@@ -16,7 +16,7 @@ class Categorie extends Model
         'nom',
     ];
     
-    public function Incidents(): HasMany
+    public function incidents(): HasMany
     {
         return $this->hasMany(Incident::class);
     }
