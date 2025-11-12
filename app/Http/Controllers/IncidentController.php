@@ -19,12 +19,18 @@ class IncidentController extends Controller
      */
     public function index(User $user)
     {
-
+        
             $incident = new Incident;
-        if(Auth::user()->can('view', $incident)){
-            $incidents = $incident->with('categorie')->get();
+        if(Auth::user()->can('viewAny', $incident)){
+            $incidents = $incident
+                                ->with('categorie')
+                                ->where('statut','<>', 'En cours')
+                                ->get();
         }else {
-            $incidents = $incident->with('categorie')->where('user_id', Auth::user()->id)->get();
+            $incidents = $incident
+                                 ->with('categorie')
+                                 ->where('user_id', Auth::user()->id)
+                                 ->get();
         }
 
         return Inertia::render('Incident/Index', [
@@ -38,11 +44,10 @@ class IncidentController extends Controller
     public function create()
     {
         $categories = Categorie::all();
-        $priorite = ['eleve', 'moyenne', 'basse'];
+ 
 
         return Inertia::render('Incident/Create',[
             'categories' => $categories,
-            'priorité' => $priorite
         ]);
     }
 
@@ -80,7 +85,9 @@ class IncidentController extends Controller
     {
 
     if(Auth::user()->can('view', $incident)){
-        
+        $incidents = Incident::where('statut', 'En cours')->where('user_id', Auth::user()->id)->count();
+        dd($incidents);
+
         return Inertia::render('Incident/Show', [
             'incident' => $incident
         ]);

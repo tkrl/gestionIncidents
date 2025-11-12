@@ -21,7 +21,7 @@ class IncidentPolicy
      */
     public function view(User $user, Incident $incident): bool
     {
-        return $user->role === 'technicien';
+        return $user->role === 'technicien'; 
     }
 
     /**

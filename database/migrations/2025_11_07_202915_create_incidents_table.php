@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('titre');
             $table->string('slug')->unique();
             $table->string('description');
-            $table->boolean('statut')->default(false);
             $table->string('priorite');
             $table->string('image')->nullable();
             $table->foreignIdFor(User::class)->constrained();
@@ -28,6 +27,7 @@ return new class extends Migration
             $table->timestamps();
             $table->timestamp('ended_at')->nullable();
         });
+        
     }
 
     /**
@@ -37,4 +37,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('incidents');
     }
+
 };

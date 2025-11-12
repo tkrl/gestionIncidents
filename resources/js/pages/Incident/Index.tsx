@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Incidents } from "@/types";
 import { Head, Link } from "@inertiajs/react";
+import { ThemeProvider } from "../../components/theme-provider";
+import { ModeToggle } from "@/components/mode-toggle";
 
 
 
@@ -10,6 +12,7 @@ import { Head, Link } from "@inertiajs/react";
  export default function index({incidents}: Incidents){
     
   return (
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <div>
         <Head title="Incident" />
         <Nav />
@@ -44,13 +47,15 @@ import { Head, Link } from "@inertiajs/react";
                     <TableCell>{incident.ended_at ? new Date(incident.ended_at).toLocaleDateString('fr-FR', {year: "numeric", month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'}) : 'Pas encore terminé'}</TableCell>               
                     <TableCell><Link href={`/incident/${incident.id}`}><Button className="cursor-pointer">Intervenntion</Button></Link></TableCell>               
                     <TableCell><Link href='/incident/create'><Button className="cursor-pointer">Créer</Button></Link></TableCell>               
-                    <TableCell><Link href={`/incident/${incident.id}/edit`} ><Button className="cursor-pointer">Edit</Button></Link></TableCell>               
+                    <TableCell>{incident.statut !== 'En cours' ? <Link href={`/incident/${incident.id}/edit`} ><Button className="cursor-pointer">Edit</Button></Link> : <div>{incident.statut}</div>}</TableCell>             
                 </TableRow>
                 ))}
             </TableBody>
 
         </Table>
         </div>
+        <Button><ModeToggle/></Button>
     </div>
+    </ThemeProvider>
   )
 }

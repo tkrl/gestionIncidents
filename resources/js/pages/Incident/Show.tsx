@@ -2,7 +2,7 @@ import Nav from '@/components/Nav'
 import { Button } from '@/components/ui/button'
 import incident from '@/routes/incident'
 import { Categorie, category, Incident } from '@/types'
-import { Link } from '@inertiajs/react'
+import { Link, useForm } from '@inertiajs/react'
 import React from 'react'
 
 interface Props {
@@ -22,8 +22,14 @@ export default function Show({incident}: Props) {
     color = 'bg-yellow-400'
   }
 
-  console.log(color)
+  const {data, setData, put, processing, errors} = useForm()
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    put(`/incident/${incident.id}/Encour`)
+  }
   return (
+
     <div>
         <Nav />
         <div className='mx-20 mt-10  shadow-md bg-gree'>
@@ -37,7 +43,9 @@ export default function Show({incident}: Props) {
               <div className="font-medium text-xl font-serif mb-2">Nom de l'incident: <span className='text-2xl capitalize'>{incident.titre}</span></div>
               <div  className='font-medium text-lg font-serif'>Description de l'employé: <span className="text-xl capitalize">{incident.description}</span></div>
               <div className="flex items-center justify-between mx-3 py-2">
-                <Button className='cursor-pointer'>Prendre en charge l'intervention</Button>
+                <form onSubmit={handleSubmit}>
+                <Button type='submit' className='cursor-pointer'>Prendre en charge l'intervention</Button>
+                </form>
                 <Link href='/incident'><Button className='cursor-pointer'>Voir plus d'incident</Button></Link>
               </div>
           </div>

@@ -5,6 +5,7 @@ use App\Models\Incident;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\IncidentController;
+use App\Http\Controllers\InterventionController;
 
 Route::get('/', function () {
     return Inertia::render('welcome');
@@ -19,3 +20,4 @@ Route::middleware('guest')->controller(UserController::class)->group(function(){
 });
 
 Route::post('/logout', [UserController::class,'logout'])->middleware('auth', 'verified')->name('logout');
+Route::put('/incident/{incident}/Encour', [InterventionController::class,'Encour'])->middleware('auth', 'verified')->name('Encour');

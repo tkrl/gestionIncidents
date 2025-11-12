@@ -41,7 +41,7 @@ export interface Incident {
     titre: string;
     slug: string | null
     description: string
-    statut: boolean
+    statut: string
     priorite: Priorite
     image?: string | null
     user_id: number
