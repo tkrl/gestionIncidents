@@ -16,6 +16,7 @@ import { ModeToggle } from "@/components/mode-toggle";
     <div>
         <Head title="Incident" />
         <Nav />
+        <div className="flex justify-end mt-5 mr-10"><Link href='/incident/create'><Button className="cursor-pointer">Créer</Button></Link></div>
         <div className="w-3/4 my-10 ml-30">
         <Table>
             <TableHeader>
@@ -28,7 +29,7 @@ import { ModeToggle } from "@/components/mode-toggle";
                     <TableHead>Créé le</TableHead>
                     <TableHead>Terminé le</TableHead>
                     <TableHead>Intervention</TableHead>
-                    <TableHead>Créer</TableHead>
+                    <TableHead>Statut</TableHead>
                     <TableHead>Edit</TableHead>
 
                 </TableRow>
@@ -45,9 +46,9 @@ import { ModeToggle } from "@/components/mode-toggle";
                     <TableCell>{incident.categorie.nom}</TableCell>
                     <TableCell>{new Date(incident.created_at).toLocaleDateString('fr-FR', {year: "numeric", month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</TableCell>
                     <TableCell>{incident.ended_at ? new Date(incident.ended_at).toLocaleDateString('fr-FR', {year: "numeric", month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'}) : 'Pas encore terminé'}</TableCell>               
-                    <TableCell><Link href={`/incident/${incident.id}`}><Button className="cursor-pointer">Intervenntion</Button></Link></TableCell>               
-                    <TableCell><Link href='/incident/create'><Button className="cursor-pointer">Créer</Button></Link></TableCell>               
-                    <TableCell>{incident.statut !== 'En cours' ? <Link href={`/incident/${incident.id}/edit`} ><Button className="cursor-pointer">Edit</Button></Link> : <div>{incident.statut}</div>}</TableCell>             
+                    <TableCell>{incident.statut === 'Résolu' ? <Link href={`/intervention/cloture/${incident.id}`}><Button className="cursor-pointer">Cloturer</Button></Link> : <Link href={`/incident/${incident.id}`}><Button className="cursor-pointer">Intervenntion</Button></Link>}</TableCell>               
+                    <TableCell>{ <div>{incident.statut}</div>}</TableCell>             
+                    <TableCell>{<Link href={`/incident/${incident.id}/edit`} ><Button disabled={incident.statut !== 'En attente'} className="cursor-pointer">Edit</Button></Link>}</TableCell>             
                 </TableRow>
                 ))}
             </TableBody>

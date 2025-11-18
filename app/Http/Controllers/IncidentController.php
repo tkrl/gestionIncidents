@@ -43,12 +43,17 @@ class IncidentController extends Controller
      */
     public function create()
     {
-        $categories = Categorie::all();
  
+    if(Auth::user()->can('create', Incident::class)){
+        $categories = Categorie::all();
+
+        $incidents = Incident::where('statut', 'En cours')->where('user_id', Auth::user()->id)->count();
+        // dd($incidents);
 
         return Inertia::render('Incident/Create',[
             'categories' => $categories,
         ]);
+    } 
     }
 
     /**
@@ -67,13 +72,17 @@ class IncidentController extends Controller
 
             $data['image'] = $request->store('images', 'public');
 
-            Auth::user()->incidents()->create($data);
+            $data['user_id'] = Auth::user()->id;
+
+            $incident->create($data);
 
             return redirect(route('incident.index'))->with('success','Incident enregistrer avec success');
 
         }
 
-        Auth::user()->incidents()->create($data);
+        $data['user_id'] = Auth::user()->id;
+
+        $incident->create($data);
 
         return redirect(route('incident.index'))->with('success','Incident enregistrer avec success');
     }
@@ -85,8 +94,6 @@ class IncidentController extends Controller
     {
 
     if(Auth::user()->can('view', $incident)){
-        $incidents = Incident::where('statut', 'En cours')->where('user_id', Auth::user()->id)->count();
-        dd($incidents);
 
         return Inertia::render('Incident/Show', [
             'incident' => $incident

@@ -22,6 +22,10 @@ class UserController extends Controller
         if(Auth::attempt($data)){
             $request->session()->regenerate();
 
+            if(Auth::user()->role === 'admin'){
+                
+               return redirect()->intended('admin'); 
+            }
             return redirect()->intended('incident.index');
         }
 

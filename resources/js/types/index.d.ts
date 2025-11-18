@@ -13,6 +13,11 @@ export interface SharedData {
     [key: string]: unknown;
 }
 
+interface chartData {
+    date: Date
+    desktop: number
+     
+  }
 export interface User {
     id: number;
     matricule: string;
@@ -25,9 +30,13 @@ export interface User {
     updated_at: string;
     agence_id: number;
     service_id: number;
+    role: string;
     [key: string]: unknown; // This allows for additional properties..
     
 }
+
+
+
 
 type Priorite = 'elevée' | 'moyenne' |'basse'
 
@@ -45,13 +54,17 @@ export interface Incident {
     priorite: Priorite
     image?: string | null
     user_id: number
+    technicien_id: number
     categorie: category;
     categorie_id: number
     piece_id?: number
     created_at: string
     updated_at: string
     ended_at: string
+    technicien?: User
     user : User
+    conseil: string
+    solution: string
 }
 
 export interface Incidents {

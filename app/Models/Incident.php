@@ -23,8 +23,11 @@ class Incident extends Model
         'priorite',
         'image',
         'user_id',
+        'technicien_id',
         'categorie_id',
         'piece_id',
+        'conseil',
+        'solution',
         'ended_at'
     ];
 
@@ -36,7 +39,12 @@ class Incident extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function technicien(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'technicien_id');
     }
     
 }

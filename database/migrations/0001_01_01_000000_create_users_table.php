@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('telephone')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('role')->default('user');
             $table->foreignIdFor(Agence::class)->constrained();
             $table->foreignIdFor(Service::class)->constrained();
             $table->rememberToken();

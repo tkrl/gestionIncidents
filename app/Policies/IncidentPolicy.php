@@ -29,7 +29,7 @@ class IncidentPolicy
      */
     public function create(User $user): bool
     {
-        return $user->id === 'user';
+        return $user->role !== 'technicien'; 
     }
 
     /**

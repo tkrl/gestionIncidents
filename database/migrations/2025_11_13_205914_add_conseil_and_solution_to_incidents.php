@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('incidents', function (Blueprint $table) {
-            $table->string('statut')->default('En attente');
+            $table->string('conseil')->nullable();
+            $table->string('solution')->nullable();
         });
     }
 
@@ -22,7 +23,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('incidents', function (Blueprint $table) {
-            $table->dropColumn('statut');
+            $table->dropColumn('conseil');
+            $table->dropColumn('solution');
+            
         });
     }
 };

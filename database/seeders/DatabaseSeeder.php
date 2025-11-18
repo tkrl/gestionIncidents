@@ -6,6 +6,7 @@ use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Agence;
 use App\Models\Service;
+use App\Models\Incident;
 use App\Models\Categorie;
 use Illuminate\Database\Seeder;
 
@@ -18,9 +19,7 @@ class DatabaseSeeder extends Seeder
     {
          // User::factory(10)->create();
 
-
-
-        Agence::create([
+         Agence::create([
             'code' => ' DD6SAI',
             'nom' => fake()->name(),
             'adresse' => fake()->address()
@@ -46,15 +45,28 @@ class DatabaseSeeder extends Seeder
             'telephone' => '83972789',
             'password' => '0000',
             'agence_id' => 1,
-            'service_id' =>1
+            'service_id' =>1,
+            'role' => 'technicien'
+        ],[
+            'matricule' => '55AD2R',
+            'name' => 'Romain Franck',
+            'email' => 'romain@franck.com',
+            'telephone' => '8546771',
+            'password' => '0000',
+            'agence_id' => 1,
+            'service_id' =>1,
+            'role' => 'admin'
         ]);
 
 
-        for($i=1 ; $i <= 4; $i++){
-            Categorie::create([
-                'nom' => "categorie $i",
+        // for($i=1 ; $i <= 4; $i++){
+        //     Categorie::create([
+        //         'nom' => "categorie $i",
   
-            ]);
-        }
+        //     ]);
+        // }     
+
+
+        Incident::factory(20)->create();
     }
 }

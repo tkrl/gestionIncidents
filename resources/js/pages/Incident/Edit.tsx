@@ -2,8 +2,12 @@ import Nav from '@/components/Nav';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { NativeSelect } from '@/components/ui/native-select';
+import { Select } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
 import {  Categorie, Categories, Incident, Priorite } from '@/types';
 import { useForm } from '@inertiajs/react';
+import { ChangeEvent } from 'react';
 
 interface Props {
     incident: Incident
@@ -36,25 +40,25 @@ export default function Edit({ incident, categories }: Props) {
                     </div>
                     <div className="mt-5">
                         <Label>Description</Label>
-                        <textarea value={data.description} onChange={e => setData('description', e.target.value )} />
+                        <Textarea value={data.description} onChange={e => setData('description', e.target.value )} />
                         {errors.description && <div className='text-red-400'>{errors.description}</div>}
                     </div>
-                    <div className="mt-5">
+                    <div className="mt-5 w-full">
                         <Label>Priorité</Label>
-                        <select value={data.priorite}  onChange={e => setData('priorite', e.target.value as Priorite)}>
+                        <NativeSelect className='w-full' value={data.priorite}  onChange={(e: ChangeEvent<HTMLSelectElement>) => setData('priorite', e.target.value as Priorite)}>
                             {Priorites.map((priorite) => (
                                 <option key={priorite} value={priorite}>{priorite}</option>
                             ))}
-                        </select>
+                        </NativeSelect>
                         {errors.priorite && <div className='text-red-400'>{errors.priorite}</div>}
                         </div>
                     <div className="mt-5">
                         <Label>Categorie</Label>
-                        <select value={data.categorie_id}  onChange={e => setData('categorie_id', parseInt(e.target.value) )}>
+                        <NativeSelect value={data.categorie_id}  onChange={e => setData('categorie_id', parseInt(e.target.value) )}>
                             {categories.map((categorie) => (
                                 <option key={categorie.id} value={categorie.id}>{categorie.nom}</option>
                             ))}
-                        </select>
+                        </NativeSelect>
                         {errors.categorie_id && <div className='text-red-300'>{errors.categorie_id}</div>}
                         </div>
                     <div className="mt-5">

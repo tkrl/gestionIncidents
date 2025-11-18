@@ -67,6 +67,11 @@ class User extends Authenticatable
 
     public function incidents(): HasMany
     {
-        return $this->hasMany(Incident::class);
+        return $this->hasMany(Incident::class, 'user_id');
+    }
+
+    public function incidentsTechnicien(): HasMany
+    {
+        return $this->hasMany(Incident::class, 'technicien_id');
     }
 }

@@ -21,11 +21,13 @@ return new class extends Migration
             $table->string('description');
             $table->string('priorite');
             $table->string('image')->nullable();
-            $table->foreignIdFor(User::class)->constrained();
+            $table->foreignIdFor(User::class, 'user_id')->constrained();
+            $table->foreignIdFor(User::class, 'technicien_id')->nullable()->constrained();
             $table->foreignIdFor(Categorie::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Piece::class)->nullable();
             $table->timestamps();
             $table->timestamp('ended_at')->nullable();
+            $table->string('statut')->default('En attente');
         });
         
     }
