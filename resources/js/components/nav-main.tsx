@@ -8,6 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { Link } from "@inertiajs/react"
 
 export function NavMain({
   items,
@@ -42,12 +43,12 @@ export function NavMain({
         </SidebarMenu>
         <SidebarMenu>
           {items.map((item) => (
-            <SidebarMenuItem key={item.title}>
+            <Link href={item.url}><SidebarMenuItem key={item.title}>
               <SidebarMenuButton tooltip={item.title}>
                 {item.icon && <item.icon />}
                 <span>{item.title}</span>
               </SidebarMenuButton>
-            </SidebarMenuItem>
+            </SidebarMenuItem></Link>
           ))}
         </SidebarMenu>
       </SidebarGroupContent>

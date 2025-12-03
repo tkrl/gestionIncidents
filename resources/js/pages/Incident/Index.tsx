@@ -14,7 +14,7 @@ interface Props {
 
  export default function index({incidents, user}: Props){
     
-     let filterIncidents = incidents.filter(incident => incident.statut === 'En attente')
+     let filterIncidents = incidents.filter(incident => incident.statut !== 'Terminé')
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
     <div>
@@ -23,7 +23,7 @@ interface Props {
         <div className="flex justify-end mt-5 mr-10">
             {user.role=='technicien' && <Link href='/intervention/view'><Button className="cursor-pointer">Consulter mes incidents</Button></Link>}  
             {user.role=='user' && <Link href='/incident/create'><Button className="cursor-pointer">Créer</Button></Link>} </div>
-        <div className="w-6/7 my-7 ml-30 border rounded-md p-5">
+        <div className="w-6/7 my-7 ml-30 border rounded-md p-5 shadow-md">
         <Table>
             <TableHeader>
                 <TableRow>
@@ -52,7 +52,7 @@ interface Props {
                     <TableCell>{new Date(incident.created_at).toLocaleDateString('fr-FR', {year: "numeric", month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'})}</TableCell>
                     <TableCell>{incident.ended_at ? new Date(incident.ended_at).toLocaleDateString('fr-FR', {year: "numeric", month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'}) : 'Pas encore terminé'}</TableCell>               
                     {user.role == 'technicien' && <TableCell>{ <Link href={`/incident/${incident.id}`}><Button className="cursor-pointer">Intervenntion</Button></Link>}</TableCell>  }             
-                    {user.role=='user' && <><TableCell>{ <div>{incident.statut}</div>}</TableCell>             
+                    {user.role=='user' && <><TableCell>{incident.statut!=='Résolu' ? <div>{incident.statut}</div> : <Link href={`/intervention/cloture/${incident.id}`}><Button className="cursor-pointer">Cloturer</Button></Link>}</TableCell>             
                     <TableCell>{<Button disabled={incident.statut !== 'En attente'} className="cursor-pointer"><Link href={`/incident/${incident.id}/edit`} >Edit</Link></Button>}</TableCell> </>}            
                 </TableRow>
                 ))}

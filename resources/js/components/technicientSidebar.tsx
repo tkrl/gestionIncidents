@@ -41,22 +41,22 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "/admin",
+      url: "#",
       icon: IconDashboard,
     },
     {
       title: "Utilisateurs",
-      url: "/admin/utilisateur",
+      url: "#",
       icon:  IconUsers,
     },
     {
       title: "Incidents",
-      url: "/admin/incidents",
+      url: "#",
       icon: IconFolder,
     },
     {
       title: "Statistique",
-      url: "/admin/statistique",
+      url: "#",
       icon: IconChartBar,
     },
     {
@@ -153,7 +153,7 @@ interface Props {
   user: User
 }
 
-export function AppSidebar({user}: Props) {
+export function TechnicienSidebar({user}: Props) {
   return (
     <Sidebar collapsible="offcanvas">
       <SidebarHeader>
@@ -172,9 +172,9 @@ export function AppSidebar({user}: Props) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        {/* <NavDocuments items={data.documents} /> */}
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        {/* <NavMain items={data.navMain} /> */}
+        <NavDocuments items={data.documents} />
+        {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={user} />

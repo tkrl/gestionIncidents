@@ -9,8 +9,8 @@ export default function Welcome() {
                 <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
             </Head>
             <div className="flex justify-center items-center h-screen">
-                <Link href='/incident'>
-                    <Button variant="ghost" className='cursor-pointer'>Index</Button>
+                <Link href='/login'>
+                    <Button variant="ghost" className='cursor-pointer'>Connexion</Button>
                 </Link>
             </div>
         </>

@@ -36,10 +36,11 @@ class InterventionController extends Controller
 
     public function view(){
 
-        $interventions = Incident::with('categorie')->where('technicien_id', Auth::user()->id)->where('statut', 'En cours')->get();
+        $interventions = Incident::with('categorie')->where('technicien_id', Auth::user()->id)->get();
 
         return Inertia::render('Intervention/view', [
-            'interventions' => $interventions
+            'interventions' => $interventions,
+            'user' => Auth::user()
         ]);
 
     }

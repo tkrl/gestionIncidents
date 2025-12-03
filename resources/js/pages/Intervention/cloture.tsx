@@ -34,13 +34,13 @@ export default function cloture({ intervention }: Props) {
                     <CardContent>
                       <div>
                         <Label>Description</Label>
-                        <div className='w-full shadow-sm pb-4 pt-1 pl-2 rounded-md'>
+                        <div className='w-full shadow-sm pb-4 mt-1 pl-2 rounded-md'>
                           {intervention.solution}
                         </div>
                       </div>
                       <div className='my-4'>
                         <Label>Conseil</Label>
-                        <div className='w-full shadow-sm pb-4 pt-1 pl-2 rounded-md'>
+                        <div className='w-full shadow-sm pb-4 mt-1 pl-2 rounded-md'>
                             {intervention.conseil}
                           </div>
                       </div>

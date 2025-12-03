@@ -25,7 +25,7 @@ class IncidentController extends Controller
         if($user->can('viewAny', $incident)){
             $incidents = $incident
                                 ->with('categorie')
-                                ->where('statut','<>', 'En cours')
+                                ->where('statut','=', 'En attente')
                                 ->get();
         }else {
             $incidents = $incident
@@ -97,7 +97,6 @@ class IncidentController extends Controller
     {
 
     if(Auth::user()->can('view', $incident)){
-
         return Inertia::render('Incident/Show', [
             'incident' => $incident
         ]);

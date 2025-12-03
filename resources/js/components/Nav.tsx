@@ -12,7 +12,7 @@ export default function Nav() {
     }
   return (
     <>
-        <div className="flex justify-between items-center h-15 shadow-md px-10">
+        <div className="flex justify-between items-center h-15 shadow-md px-10 z-100">
             <div className="text-black font-medium">
                 <Link href='/incident'>Incident</Link>
             </div>
