@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\IncidentRequest;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Storage;
 
 class IncidentController extends Controller
@@ -26,6 +27,7 @@ class IncidentController extends Controller
             $incidents = $incident
                                 ->with('categorie')
                                 ->where('statut','=', 'En attente')
+                                ->orderBy('created_at','desc')
                                 ->get();
         }else {
             $incidents = $incident
@@ -73,7 +75,9 @@ class IncidentController extends Controller
 
         if($request->hasFile('image')){
 
-            $data['image'] = $request->store('images', 'public');
+            $path =  $request->file('image')->store("images", "public");
+
+            $data["image"] = $path;
 
             $data['user_id'] = Auth::user()->id;
 
@@ -130,25 +134,27 @@ class IncidentController extends Controller
 
         $data = $request->validated();
 
+  
         $data['slug'] = Str::slug($data['titre']);
 
-    
-        if($request->has('image')){
 
+    
+        if($request->hasFile('image')){
+           
             if($incident->image){
-                Storage::delete($incident->image);
+                Storage::disk('public')->delete($incident->image);
             }
 
-            $data['image'] = $request->store('images', 'public');
+            
+            $path = $request->file('image')->store('images', 'public');
 
-            $incident->update($data);
+            $data['image'] = $path;
 
-            $path = $data['image']->store('Incident');
+        }else{
+            unset($data['image']);
+            }
 
-            return redirect(route('incident.index'))->with('success','Incident Mise à jour avec success');
-
-        }
-
+            dd($data);
         $incident->update($data);
  
         return redirect()->route('incident.index')->with('success','Incident Mise à jour avec success');

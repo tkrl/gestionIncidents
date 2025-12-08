@@ -17,6 +17,7 @@ import { IconChartBar, IconDashboard, IconFolder, IconInnerShadowTop, IconListDe
 import { TechnicienSidebar } from '@/components/technicientSidebar';
 import { NavDocuments } from '@/components/nav-documents';
 import { useState } from 'react';
+import { Empty } from '@/components/ui/empty';
 
 interface Props {
     interventions: Incident[];
@@ -56,7 +57,7 @@ export default function view({ interventions, user }: Props) {
         ],
     }
 
-    const filterIncidnets = interventions.filter(item => item.statut === filter)
+    const filterIncidents = interventions.filter(item => item.statut === filter)
     
     return (
         <SidebarProvider
@@ -111,9 +112,9 @@ export default function view({ interventions, user }: Props) {
                 <div className="flex flex-1 flex-col">
                     <div className="@container/main flex flex-1 flex-col gap-2">
                         <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-                            
+                            <Button className='cursor-pointer'><Link href="/incident" >Valider</Link></Button>
                             <div className="px-4 lg:px-6 flex flex-wrap gap-7">
-                                {filterIncidnets.map((intervention) => (
+                                {filterIncidents.length > 0 ? filterIncidents.map((intervention) => (
 
                                     <Card className="w-full max-w-85" key={intervention.id}>
                                         <CardHeader>
@@ -143,7 +144,7 @@ export default function view({ interventions, user }: Props) {
                                             <p className='capitalize'>{intervention.categorie.nom}</p>
                                         </CardFooter>
                                     </Card>
-                                ))}
+                                )) : <div className='flex justify-center items-center text-xl font-medium w-full h-150'> <div>Les incidents de types <Badge className='text-xl'>{filter}</Badge> ne sont pas disponible</div></div>}
                             </div>
                         </div>
                     </div>
