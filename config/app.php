@@ -52,7 +52,8 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'https://gestionincidents-starting.up.railway.app'),
+    // 'url' => env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
