@@ -38,7 +38,8 @@ class DatabaseSeeder extends Seeder
             'password' => '0000',
             'agence_id' => 1,
             'service_id' =>1
-        ],[
+        ],);
+        User::factory()->create([
             'matricule' => '22TC6G',
             'name' => 'Fabien Bone',
             'email' => 'fabien@bone.com',
@@ -47,7 +48,8 @@ class DatabaseSeeder extends Seeder
             'agence_id' => 1,
             'service_id' =>1,
             'role' => 'technicien'
-        ],[
+        ],);
+        User::factory()->create([
             'matricule' => '55AD2R',
             'name' => 'Romain Franck',
             'email' => 'romain@franck.com',
@@ -59,12 +61,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
 
-        // for($i=1 ; $i <= 4; $i++){
-        //     Categorie::create([
-        //         'nom' => "categorie $i",
+        for($i=1 ; $i <= 4; $i++){
+            Categorie::create([
+                'nom' => "categorie $i",
   
-        //     ]);
-        // }     
+            ]);
+        }     
 
 
         Incident::factory(20)->create();

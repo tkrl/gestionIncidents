@@ -6,6 +6,7 @@ use App\Models\Incident;
 use App\Policies\IncidentPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        if (app()->environment('production')) {
+            URL::forceScheme('https');
+        }
         Gate::policy(Incident::class, IncidentPolicy::class);
     }
 }

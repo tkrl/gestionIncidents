@@ -7,7 +7,7 @@ import { Select } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import {  Categorie, Categories, Incident, Priorite } from '@/types';
 import { useForm } from '@inertiajs/react';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 interface Props {
     incident: Incident
@@ -19,8 +19,23 @@ export default function Edit({ incident, categories }: Props) {
       titre: incident.titre,
       description: incident.description,
       priorite: incident.priorite,
-      categorie_id: incident.categorie_id
+      categorie_id: incident.categorie_id,
+      image: null
     });
+
+    const[previeUrl, setPreviewUrl] = useState<string>(incident.image ? `${incident.image}` : '')
+
+    const handleImageChange = (e : React.ChangeEvent<HTMLInputElement>) =>{
+        const file = e.target.files?.[0] ;
+        if(file){
+            setData('image', file);
+            const reader = new FileReader()
+            reader.onloadend = () =>{
+                setPreviewUrl(reader.result as string)
+            }
+            reader.readAsDataURL(file)
+        }
+    }
 
     const Priorites = ['elevée', 'moyenne', 'basse']
 
@@ -63,9 +78,15 @@ export default function Edit({ incident, categories }: Props) {
                         </div>
                     <div className="mt-5">
                         <Label>Image</Label>
-                        <Input type="file" />
+                        <Input type="file" onChange={handleImageChange} accept='images/*'/>
                         </div>
-
+                        {errors.image && <div className='text-red-400'>{errors.image}</div>}
+                        {previeUrl && (
+                            <div className="mt-2">
+                                <p className="text-sm text-gray-600">Image actuelle:</p>
+                                <img src={previeUrl} alt="Image actuelle" className="mt-2 max-w-xs rounded" />
+                            </div>
+                        )}
                    <div className='w-full mt-5 px-5'>
                    <Button type='submit' disabled={processing}  className='w-full'>Valider</Button>
                    </div>

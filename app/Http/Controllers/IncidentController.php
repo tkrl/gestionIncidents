@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\IncidentRequest;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Storage;
 
 class IncidentController extends Controller
@@ -20,21 +21,25 @@ class IncidentController extends Controller
     public function index(User $user)
     {
         
-            $incident = new Incident;
-        if(Auth::user()->can('viewAny', $incident)){
+        $incident = new Incident;
+        $user = Auth::user();
+        if($user->can('viewAny', $incident)){
             $incidents = $incident
                                 ->with('categorie')
-                                ->where('statut','<>', 'En cours')
+                                ->where('statut','=', 'En attente')
+                                ->orderBy('created_at','desc')
                                 ->get();
         }else {
             $incidents = $incident
                                  ->with('categorie')
-                                 ->where('user_id', Auth::user()->id)
+                                 ->where('user_id', $user->id)
                                  ->get();
         }
 
+        
         return Inertia::render('Incident/Index', [
-            'incidents' => $incidents   
+            'incidents' => $incidents,
+            'user' => $user
         ]);
 }
 
@@ -70,7 +75,9 @@ class IncidentController extends Controller
 
         if($request->hasFile('image')){
 
-            $data['image'] = $request->store('images', 'public');
+            $path =  $request->file('image')->store("images", "public");
+
+            $data["image"] = $path;
 
             $data['user_id'] = Auth::user()->id;
 
@@ -94,7 +101,6 @@ class IncidentController extends Controller
     {
 
     if(Auth::user()->can('view', $incident)){
-
         return Inertia::render('Incident/Show', [
             'incident' => $incident
         ]);
@@ -128,25 +134,27 @@ class IncidentController extends Controller
 
         $data = $request->validated();
 
+  
         $data['slug'] = Str::slug($data['titre']);
 
-    
-        if($request->has('image')){
 
+    
+        if($request->hasFile('image')){
+           
             if($incident->image){
-                Storage::delete($incident->image);
+                Storage::disk('public')->delete($incident->image);
             }
 
-            $data['image'] = $request->store('images', 'public');
+            
+            $path = $request->file('image')->store('images', 'public');
 
-            $incident->update($data);
+            $data['image'] = $path;
 
-            $path = $data['image']->store('Incident');
+        }else{
+            unset($data['image']);
+            }
 
-            return redirect(route('incident.index'))->with('success','Incident Mise à jour avec success');
-
-        }
-
+            dd($data);
         $incident->update($data);
  
         return redirect()->route('incident.index')->with('success','Incident Mise à jour avec success');

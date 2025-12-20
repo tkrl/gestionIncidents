@@ -28,7 +28,7 @@ class IncidentRequest extends FormRequest
             'slug' => ["unique:incidents,slug"],
             'description' => ['required'],
             'priorite' => ['required'],
-            'image' => ['image'],
+            'image' => ['nullable', 'image', 'max:2048'],
             'user_id',
             'categorie_id' => ['required'],
         ];

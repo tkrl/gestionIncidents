@@ -52,7 +52,7 @@ export interface Incident {
     description: string
     statut: string
     priorite: Priorite
-    image?: string | null
+    image: string
     user_id: number
     technicien_id: number
     categorie: category;

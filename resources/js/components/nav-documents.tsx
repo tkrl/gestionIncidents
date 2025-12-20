@@ -24,28 +24,37 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { useState } from "react"
 
-export function NavDocuments({
-  items,
-}: {
+type Props = {
+ 
   items: {
     name: string
     url: string
-    icon: Icon
-  }[]
-}) {
-  const { isMobile } = useSidebar()
+    icon: Icon,
+  }[],
+  valeur?: string 
+}
 
+export function NavDocuments({ items,valeur}: Props) {
+  const { isMobile } = useSidebar()
+  const [value, setValue] = useState("En cours")
+
+
+
+  console.log(value)
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Documents</SidebarGroupLabel>
-      <SidebarMenu>
+      <SidebarMenu >
         {items.map((item) => (
-          <SidebarMenuItem key={item.name}>
+          <SidebarMenuItem value={valeur} key={item.name}>
+            
             <SidebarMenuButton asChild>
-              <a href={item.url}>
+              <a href={item.url}  onClick={() => setValue(item.name)}>
                 <item.icon />
                 <span>{item.name}</span>
+                
               </a>
             </SidebarMenuButton>
             <DropdownMenu>

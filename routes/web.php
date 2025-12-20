@@ -8,11 +8,11 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\IncidentController;
 use App\Http\Controllers\InterventionController;
 
+
+Route::resource('/incident', IncidentController::class)->middleware(['auth', 'verified']);
 Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
-
-Route::resource('/incident', IncidentController::class)->middleware(['auth', 'verified']);
 
 Route::middleware('guest')->controller(UserController::class)->group(function(){
 
@@ -31,4 +31,9 @@ Route::controller(InterventionController::class)->middleware('auth', 'verified')
     Route::put('/intervention/cloture/{incident}', 'cloturer')->name('Intervention.cloturer');
 });
 
-Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('auth', 'verified')->name('admin');
+Route::controller(AdminController::class)->middleware('auth', 'verified')->name('admin.')->group(function (){
+    Route::get('/admin', 'index')->name('index');
+    Route::get('/admin/utilisateur', 'utilisateur')->name('utilisateur');
+    Route::get('/admin/statistique', 'statistique')->name('statistique');
+    Route::get('/admin/incidents', 'incidents')->name('incidents');
+});

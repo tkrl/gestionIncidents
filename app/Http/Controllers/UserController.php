@@ -24,9 +24,9 @@ class UserController extends Controller
 
             if(Auth::user()->role === 'admin'){
                 
-               return redirect()->intended('admin'); 
+               return redirect()->route('admin.index'); 
             }
-            return redirect()->intended('incident.index');
+            return redirect()->route('incident.index');
         }
 
         return back()->withErrors([
