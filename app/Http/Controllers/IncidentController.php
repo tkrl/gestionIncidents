@@ -154,7 +154,7 @@ class IncidentController extends Controller
             unset($data['image']);
             }
 
-            dd($data);
+
         $incident->update($data);
  
         return redirect()->route('incident.index')->with('success','Incident Mise à jour avec success');
