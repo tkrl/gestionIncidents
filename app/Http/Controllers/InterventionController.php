@@ -92,7 +92,7 @@ class InterventionController extends Controller
         return redirect()->route('incident.index')->with('success', 'Intervention Terminé');
     }
 
-    public function rejeter(Incident $incident){
+    public function rejeter(Incident $incident, Request $request){
         $data = $request->validate([
             'statut' => 'string',
             'ended_at' => 'string'

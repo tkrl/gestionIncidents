@@ -77,7 +77,6 @@ export default function Show({ intervention }: Props) {
                                         <Label className="text-sm text-gray-500 dark:text-gray-400">
                                             Catégorie
                                         </Label>
-                                        <p className="font-medium">{intervention.categorie.nom}</p>
                                     </div>
                                     
                                     <div>
