@@ -214,69 +214,7 @@ export default function Utilisateurs({ users, user }: Props) {
                     </CardContent>
                   </Card>
 
-                  {/* Barre de recherche et filtres */}
-                  <Card className="border-0 shadow-lg bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900/50 mb-8">
-                    <CardContent className="pt-6">
-                      <div className="flex flex-col md:flex-row gap-6">
-                        <div className="flex-1">
-                          <div className="relative">
-                            <Search className="absolute left-3 top-3 h-5 w-5 text-slate-400" />
-                            <Input
-                              placeholder="Rechercher un utilisateur..."
-                              value={searchQuery}
-                              onChange={(e) => setSearchQuery(e.target.value)}
-                              className="pl-10 h-11 bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700"
-                            />
-                          </div>
-                        </div>
-                        <div className="flex gap-3">
-                          <Select defaultValue="name">
-                            <SelectTrigger className="w-[200px] h-11 bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700">
-                              <SlidersHorizontal className="mr-2 h-4 w-4" />
-                              <SelectValue placeholder="Trier par" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="name">Nom (A-Z)</SelectItem>
-                              <SelectItem value="name-desc">Nom (Z-A)</SelectItem>
-                              <SelectItem value="date">Date d'inscription</SelectItem>
-                              <SelectItem value="role">Rôle</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  {/* Filtres rapides */}
-                  <div className="mb-8">
-                    <Tabs value={activeFilter} onValueChange={setActiveFilter} className="w-full">
-                      <TabsList className="w-full justify-start overflow-x-auto bg-slate-100 dark:bg-slate-800 p-1">
-                        {filters.map((filter) => {
-                          const Icon = filter.icon
-                          return (
-                            <TabsTrigger 
-                              key={filter.value} 
-                              value={filter.value} 
-                              className={`data-[state=active]:bg-gradient-to-r ${filter.color} data-[state=active]:text-white relative min-w-[140px]`}
-                            >
-                              <Icon className="h-4 w-4 mr-2" />
-                              {filter.label}
-                              <Badge 
-                                variant="secondary" 
-                                className={`ml-2 ${
-                                  activeFilter === filter.value 
-                                    ? 'bg-white/20 text-white' 
-                                    : 'bg-slate-200 dark:bg-slate-700'
-                                }`}
-                              >
-                                {filter.count}
-                              </Badge>
-                            </TabsTrigger>
-                          )
-                        })}
-                      </TabsList>
-                    </Tabs>
-                  </div>
+   
                 </div>
               </div>
 

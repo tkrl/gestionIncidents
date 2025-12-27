@@ -3,16 +3,17 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { Incident } from '@/types';
+import { Incident, User } from '@/types';
 import { useForm } from '@inertiajs/react';
 import { ArrowLeft, CheckCircle, FileText, Lightbulb, ThumbsUp, Calendar } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface Props {
     intervention: Incident;
+    user: User
 }
 
-export default function Cloture({ intervention }: Props) {
+export default function Cloture({ intervention, user }: Props) {
     const { put, processing } = useForm();
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -31,7 +32,7 @@ export default function Cloture({ intervention }: Props) {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-            <Nav />
+            <Nav user={user}/>
             
             <div className="container mx-auto px-4 py-8">
                 <div className="mb-6">

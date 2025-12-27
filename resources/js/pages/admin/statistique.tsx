@@ -184,29 +184,8 @@ export default function Statistique({ incidents, user }: Props) {
                       value="overview" 
                       className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-emerald-500 data-[state=active]:to-cyan-500 data-[state=active]:text-white"
                     >
-                      <Activity className="h-4 w-4 mr-2" />
+                      <Activity className="h-4 w-full mr-2" />
                       Vue d'ensemble
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="categories" 
-                      className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-indigo-500 data-[state=active]:text-white"
-                    >
-                      <PieChart className="h-4 w-4 mr-2" />
-                      Catégories
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="performance" 
-                      className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500 data-[state=active]:text-white"
-                    >
-                      <TrendingUp className="h-4 w-4 mr-2" />
-                      Performance
-                    </TabsTrigger>
-                    <TabsTrigger 
-                      value="trends" 
-                      className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-red-500 data-[state=active]:text-white"
-                    >
-                      <BarChart3 className="h-4 w-4 mr-2" />
-                      Tendances
                     </TabsTrigger>
                   </TabsList>
 

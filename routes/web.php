@@ -8,8 +8,10 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\IncidentController;
 use App\Http\Controllers\InterventionController;
 
-
 Route::resource('/incident', IncidentController::class)->middleware(['auth', 'verified']);
+
+
+
 Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');

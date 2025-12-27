@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { NativeSelect } from '@/components/ui/native-select';
 import { Textarea } from '@/components/ui/textarea';
-import { Categories, Incident } from '@/types';
+import { Categories, Incident, User } from '@/types';
 import { useForm } from '@inertiajs/react';
 import { ArrowLeft, Upload, AlertCircle, HelpCircle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,9 +13,10 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 interface Props {
     incident: Incident
     categories: Categories
+    user: User
 }
 
-export default function Create({ categories, incident }: Props) {
+export default function Create({ categories, incident, user }: Props) {
     const { data, setData, post, processing, errors } = useForm({
         titre: '',
         description: '',
@@ -35,7 +36,7 @@ export default function Create({ categories, incident }: Props) {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-            <Nav />
+            <Nav user={user} />
             
             <div className="container mx-auto px-4 py-8">
                 <div className="max-w-4xl mx-auto">
@@ -174,11 +175,9 @@ export default function Create({ categories, incident }: Props) {
                                                             type="file"
                                                             onChange={(e) => setData("image", e.target.files?.[0] || null)}
                                                             accept="image/*"
-                                                            className="hidden"
+                                                            className="hidde"
                                                         />
-                                                        <Button type="button" variant="outline">
-                                                            Ajouter une capture d'écran
-                                                        </Button>
+
                                                     </Label>
                                                     <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">
                                                         Une image peut aider à comprendre le problème plus rapidement

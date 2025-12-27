@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { NativeSelect } from '@/components/ui/native-select';
 import { Textarea } from '@/components/ui/textarea';
-import { Categorie, Categories, Incident, Priorite } from '@/types';
+import { Categorie, Categories, Incident, Priorite, User } from '@/types';
 import { useForm } from '@inertiajs/react';
 import { ArrowLeft, Image as ImageIcon, Upload } from 'lucide-react';
 import { useState } from 'react';
@@ -13,15 +13,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 interface Props {
     incident: Incident
     categories: Categories
+    user: User
 }
 
-export default function Edit({ incident, categories }: Props) {
-    const { data, setData, put, processing, errors } = useForm({
+export default function Edit({ incident, categories, user }: Props) {
+    const { data, setData, post, processing, errors } = useForm({
         titre: incident.titre,
         description: incident.description,
         priorite: incident.priorite,
         categorie_id: incident.categorie_id,
-        image: null
+        image: null as File | null,
+        _method: 'PUT'
     });
 
     const [previewUrl, setPreviewUrl] = useState<string>(incident.image ? `${incident.image}` : '');
@@ -41,12 +43,12 @@ export default function Edit({ incident, categories }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(`/incident/${incident.id}`);
+        post(`/incident/${incident.id}`);
     };
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-            <Nav />
+            <Nav user={user}/>
             
             <div className="container mx-auto px-4 py-8">
                 <Button variant="ghost" className="mb-6" asChild>
@@ -163,12 +165,9 @@ export default function Edit({ incident, categories }: Props) {
                                                                 type="file"
                                                                 onChange={handleImageChange}
                                                                 accept="image/*"
-                                                                className="hidden"
+                                                                className=""
                                                             />
-                                                            <Button type="button" variant="outline">
-                                                                <ImageIcon className="w-4 h-4 mr-2" />
-                                                                Choisir une image
-                                                            </Button>
+
                                                         </Label>
                                                         <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                                                             PNG, JPG, GIF jusqu'à 5MB

@@ -20,6 +20,21 @@ export default function Index({ incidents, user }: Props) {
     const [activeFilter, setActiveFilter] = useState<string>('all');
     
     const filterIncidents = incidents.filter(incident => incident.statut !== 'Terminé');
+    let filterFilterIncidents = null;
+
+    if(activeFilter === 'all'){
+        filterFilterIncidents = filterIncidents
+    }
+    if(activeFilter === 'En attente'){
+        filterFilterIncidents = filterIncidents.filter(incident => incident.statut === 'En attente')
+    }
+    if(activeFilter === 'En cours'){
+        filterFilterIncidents = filterIncidents.filter(incident => incident.statut === 'En cours')
+    }
+    if(activeFilter === 'Résolu'){
+        filterFilterIncidents = filterIncidents.filter(incident => incident.statut === 'Résolu')
+    }
+
     
     const getPriorityColor = (priority: string) => {
         switch (priority) {
@@ -43,7 +58,7 @@ export default function Index({ incidents, user }: Props) {
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
             <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
                 <Head title="Gestion des Incidents" />
-                <Nav />
+                <Nav user={user}/>
                 
                 <div className="container mx-auto px-4 py-8">
                     <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4">
@@ -95,13 +110,16 @@ export default function Index({ incidents, user }: Props) {
                                         Liste des incidents nécessitant une attention
                                     </CardDescription>
                                 </div>
+                                {user.role == 'user' &&
                                 <Tabs defaultValue="all" className="w-auto" onValueChange={setActiveFilter}>
                                     <TabsList>
                                         <TabsTrigger value="all">Tous</TabsTrigger>
-                                        <TabsTrigger value="pending">En attente</TabsTrigger>
-                                        <TabsTrigger value="in-progress">En cours</TabsTrigger>
+                                        <TabsTrigger value="En attente">En attente</TabsTrigger>
+                                        <TabsTrigger value="En cours">En cours</TabsTrigger>
+                                        <TabsTrigger value="Résolu">Résolu</TabsTrigger>
                                     </TabsList>
                                 </Tabs>
+                                }
                             </div>
                         </CardHeader>
                         <CardContent>
@@ -124,7 +142,7 @@ export default function Index({ incidents, user }: Props) {
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
-                                        {filterIncidents.length === 0 ? (
+                                        {filterFilterIncidents && filterFilterIncidents.length === 0 ? (
                                             <TableRow>
                                                 <TableCell colSpan={user.role === 'technicien' ? 6 : 7} className="text-center py-12">
                                                     <div className="flex flex-col items-center justify-center text-gray-500 dark:text-gray-400">
@@ -134,8 +152,8 @@ export default function Index({ incidents, user }: Props) {
                                                     </div>
                                                 </TableCell>
                                             </TableRow>
-                                        ) : (
-                                            filterIncidents.map(incident => (
+                                        ) : (filterFilterIncidents && 
+                                            filterFilterIncidents.map(incident => (
                                                 <TableRow key={incident.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
                                                     <TableCell className="font-medium">
                                                         <div className="flex items-center gap-2">

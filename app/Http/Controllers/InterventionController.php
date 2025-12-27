@@ -48,7 +48,8 @@ class InterventionController extends Controller
     public function show(Incident $incident){
 
         return Inertia::render('Intervention/show', [
-            'intervention' => $incident
+            'intervention' => $incident,
+            'user' => Auth::user()
         ]);
     }
 
@@ -73,7 +74,8 @@ class InterventionController extends Controller
     public function cloture(Incident $incident){
 
         return Inertia::render('Intervention/cloture', [
-            'intervention' => $incident
+            'intervention' => $incident,
+            'user' => Auth::user()
         ]);
     }
 

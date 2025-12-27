@@ -55,8 +55,11 @@ class IncidentController extends Controller
         $incidents = Incident::where('statut', 'En cours')->where('user_id', Auth::user()->id)->count();
         // dd($incidents);
 
+        $user = Auth::user();
+
         return Inertia::render('Incident/Create',[
             'categories' => $categories,
+            'user' => $user
         ]);
     } 
     }
@@ -99,10 +102,11 @@ class IncidentController extends Controller
      */
     public function show(Incident $incident)
     {
-
+        
     if(Auth::user()->can('view', $incident)){
         return Inertia::render('Incident/Show', [
-            'incident' => $incident
+            'incident' => $incident,
+            'user' => Auth::user()
         ]);
     }
     }
@@ -115,12 +119,12 @@ class IncidentController extends Controller
  
         if(Auth::user()->can('update', $incident)){
             $categories = Categorie::all();
-            $incident->with('categorie');
+            $incident->with('categorie'); 
    
            return Inertia::render('Incident/Edit', [
                'incident' => $incident,
-               'categories' => $categories
-   
+               'categories' => $categories,
+                'user' => Auth::user()
            ]);
         };
 
