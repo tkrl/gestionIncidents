@@ -175,15 +175,11 @@ export default function IncidentTable({data}: Props) {
                                     <TableCell className='py-4'>
                                         <Badge 
                                             variant="outline" 
-<<<<<<< HEAD
+
                                             className={`border-2 ${getPriorityColor(item.priorite.nom)} px-3 py-1 font-medium`}
                                         >
                                             {item.priorite.nom}
-=======
-                                            className={`border-2 ${getPriorityColor(item.priorite)} px-3 py-1 font-medium`}
-                                        >
-                                            {item.priorite}
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
+
                                         </Badge>
                                     </TableCell>
                                     <TableCell className='py-4'>

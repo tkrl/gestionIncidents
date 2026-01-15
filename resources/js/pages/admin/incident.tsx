@@ -59,11 +59,9 @@ export default function Incidents({ incidents, user }: Props) {
 
   // Calcul des statistiques rapides
   const stats = {
-<<<<<<< HEAD
+
     urgent: incidents.filter(i => i.priorite.nom === 'elevée' && i.statut !== 'Terminé').length,
-=======
-    urgent: incidents.filter(i => i.priorite === 'elevée' && i.statut !== 'Terminé').length,
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
+
     thisWeek: incidents.filter(i => {
       const date = new Date(i.created_at)
       const weekAgo = new Date()
