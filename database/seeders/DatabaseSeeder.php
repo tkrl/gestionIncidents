@@ -61,7 +61,7 @@ class DatabaseSeeder extends Seeder
             'password' => '0000',
             'agence_id' => 1,
             'service_id' =>1,
-            'role_id' => 1
+            'role_id' => 2
         ]);
 
         User::factory()->create([
@@ -72,7 +72,7 @@ class DatabaseSeeder extends Seeder
             'password' => '0000',
             'agence_id' => 1,
             'service_id' =>1,
-            'role_id' => 1
+            'role_id' => 3
         ]);
 
 

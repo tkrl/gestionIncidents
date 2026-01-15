@@ -48,11 +48,9 @@ export default function Statistique({ incidents, user }: Props) {
   }, {} as Record<string, number>)
 
   const incidentsParPriorite = incidents.reduce((acc, incident) => {
-<<<<<<< HEAD
+
     const priorite = incident.priorite.nom
-=======
-    const priorite = incident.priorite
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
+
     acc[priorite] = (acc[priorite] || 0) + 1
     return acc
   }, {} as Record<string, number>)
@@ -156,11 +154,9 @@ export default function Statistique({ incidents, user }: Props) {
                           <div>
                             <p className="text-sm font-medium text-slate-700 dark:text-slate-300">Urgents/mois</p>
                             <p className="text-2xl font-bold text-slate-900 dark:text-white">
-<<<<<<< HEAD
+
                               {incidents.filter(i => i.priorite.nom === 'elevée').length}
-=======
-                              {incidents.filter(i => i.priorite === 'elevée').length}
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
+
                             </p>
                           </div>
                         </div>
@@ -308,12 +304,11 @@ export default function Statistique({ incidents, user }: Props) {
                                       </span>
                                     </div>
                                   </div>
-                                  <div className="h-2 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                                    <div 
-                                      className={`h-full rounded-full bg-gradient-to-r ${colors[priorite as keyof typeof colors]}`}
-                                      style={{ width: `${percentage}%` }}
-                                    />
-                                  </div>
+                                  <Progress 
+                                    value={percentage}
+                                    className="h-2 bg-slate-200 dark:bg-slate-700"
+                                    indicatorClassName={`bg-gradient-to-r ${colors[priorite as keyof typeof colors]}`}
+                                  />
                                 </div>
                               )
                             })}
@@ -362,12 +357,11 @@ export default function Statistique({ incidents, user }: Props) {
                                     </span>
                                   </div>
                                 </div>
-                                <div className="h-2 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                                  <div 
-                                    className={`h-full rounded-full bg-gradient-to-r ${colors[index % colors.length]}`}
-                                    style={{ width: `${percentage}%` }}
-                                  />
-                                </div>
+                                <Progress 
+                                  value={percentage}
+                                  className="h-2 bg-slate-200 dark:bg-slate-700"
+                                  indicatorClassName={`bg-gradient-to-r ${colors[index % colors.length]}`}
+                                />
                               </div>
                             )
                           })}

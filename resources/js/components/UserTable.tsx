@@ -112,70 +112,11 @@ export default function UserTable({data}: Props) {
 
 
 
-<<<<<<< HEAD
-=======
-    const getRoleColor = (role: string) => {
-        switch(role) {
-            case 'technicien': return 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white'
-            case 'user': return 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white'
-            default: return 'bg-gradient-to-r from-blue-500 to-cyan-600 text-white'
-        }
-    }
-
-    const getRoleIcon = (role: string) => {
-        return role === 'technicien' ? <IconTool className="h-3 w-3 mr-1" /> : <IconUser className="h-3 w-3 mr-1" />
-    }
-
-    return (
-        <div className='m-2 md:m-5'>
-            {/* En-tête amélioré */}
-            <div className="flex flex-col md:flex-row justify-between gap-4 mb-6">
-                <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
-                    <div className="flex flex-wrap gap-2 rounded-2xl bg-gradient-to-r from-slate-50 to-gray-100 dark:from-slate-800 dark:to-slate-900 p-1 transition-all">
-                        <Label 
-                            className={`flex items-center gap-2 my-1 py-1.5 px-4 rounded-xl cursor-pointer transition-all ${filter == 'all' ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-md' : 'hover:bg-gray-200 dark:hover:bg-slate-700'}`} 
-                            onClick={() => setFilter('all')}
-                        >
-                            Tous 
-                            <Badge variant='secondary' className={`${filter == 'all' ? 'bg-white/30 text-white' : 'bg-gray-300 dark:bg-slate-600'}`}>
-                                {countAll}
-                            </Badge>
-                        </Label>
-                        <Label 
-                            className={`flex items-center gap-2 my-1 py-1.5 px-4 rounded-xl cursor-pointer transition-all ${filter == 'employe' ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-md' : 'hover:bg-gray-200 dark:hover:bg-slate-700'}`} 
-                            onClick={() => setFilter('employe')}
-                        >
-                            Employé 
-                            <Badge variant='secondary' className={`${filter == 'employe' ? 'bg-white/30 text-white' : 'bg-gray-300 dark:bg-slate-600'}`}>
-                                {countUser}
-                            </Badge>
-                        </Label>
-                        <Label 
-                            className={`flex items-center gap-2 my-1 py-1.5 px-4 rounded-xl cursor-pointer transition-all ${filter == 'technicien' ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-md' : 'hover:bg-gray-200 dark:hover:bg-slate-700'}`} 
-                            onClick={() => setFilter('technicien')}
-                        >
-                            Technicien 
-                            <Badge variant='secondary' className={`${filter == 'technicien' ? 'bg-white/30 text-white' : 'bg-gray-300 dark:bg-slate-600'}`}>
-                                {countTechnicien}
-                            </Badge>
-                        </Label>
-                    </div>
-
-                    {/* Barre de recherche pour mobile */}
-                    <div className="w-full md:w-64 relative">
-                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                        <Input
-                            placeholder="Rechercher..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="pl-10 h-9 bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700"
-                        />
-                    </div>
-                </div>
 
 
 
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
+
+
             </div>
 
             {/* Table responsive */}
@@ -201,11 +142,8 @@ export default function UserTable({data}: Props) {
                                         <div className="flex items-center gap-3">
                                             <Avatar className="h-8 w-8">
                                                 <AvatarImage src={item.avatar} alt={item.name} />
-<<<<<<< HEAD
                                                 <AvatarFallback className={getRoleColor(item.role.nom)}>
-=======
-                                                <AvatarFallback className={getRoleColor(item.role)}>
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
+
                                                     {item.name.charAt(0).toUpperCase()}
                                                 </AvatarFallback>
                                             </Avatar>
@@ -235,15 +173,10 @@ export default function UserTable({data}: Props) {
                                         </Badge>
                                     </TableCell>
                                     <TableCell className='py-4'>
-<<<<<<< HEAD
                                         <Badge className={`flex items-center justify-center gap-1 px-3 py-1.5 ${getRoleColor(item.role.nom)}`}>
                                             {getRoleIcon(item.role.nom)}
                                             <span className="capitalize">{item.role.nom === 'user' ? 'Employé' : 'Technicien'}</span>
-=======
-                                        <Badge className={`flex items-center justify-center gap-1 px-3 py-1.5 ${getRoleColor(item.role)}`}>
-                                            {getRoleIcon(item.role)}
-                                            <span className="capitalize">{item.role === 'user' ? 'Employé' : 'Technicien'}</span>
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
+
                                         </Badge>
                                     </TableCell>
                                 </TableRow>

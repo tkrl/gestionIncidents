@@ -41,11 +41,9 @@ export default function Utilisateurs({ users, user }: Props) {
 
   const filterUsers = users.filter(u => {
     if (activeFilter === "all") return true
-<<<<<<< HEAD
+
     return u.role.nom === activeFilter
-=======
-    return u.role === activeFilter
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
+
   }).filter(u => 
     u.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     u.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -54,11 +52,9 @@ export default function Utilisateurs({ users, user }: Props) {
 
   const getFilterCount = (role: string) => {
     if (role === "all") return users.length
-<<<<<<< HEAD
+
     return users.filter(u => u.role.nom === role).length
-=======
-    return users.filter(u => u.role === role).length
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
+
   }
 
   const filters = [
@@ -118,15 +114,12 @@ export default function Utilisateurs({ users, user }: Props) {
                       </Button>
                       <Button size="sm" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 shadow-lg">
                         <UserPlus className="mr-2 h-4 w-4" />
-<<<<<<< HEAD
+
                         <Link href="/users/register">
                             Ajouter utilisateur
                         </Link>
-                      </Button> 
-=======
-                        Ajouter utilisateur
                       </Button>
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
+
                     </div>
                   </div>
 
@@ -155,11 +148,9 @@ export default function Utilisateurs({ users, user }: Props) {
                           <div>
                             <p className="text-sm font-medium text-slate-700 dark:text-slate-300">Employés</p>
                             <p className="text-2xl font-bold text-slate-900 dark:text-white">
-<<<<<<< HEAD
+
                               {users.filter(u => u.role.nom === 'user').length}
-=======
-                              {users.filter(u => u.role === 'user').length}
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
+
                             </p>
                           </div>
                         </div>
@@ -175,11 +166,9 @@ export default function Utilisateurs({ users, user }: Props) {
                           <div>
                             <p className="text-sm font-medium text-slate-700 dark:text-slate-300">Techniciens</p>
                             <p className="text-2xl font-bold text-slate-900 dark:text-white">
-<<<<<<< HEAD
+
                               {users.filter(u => u.role.nom === 'technicien').length}
-=======
-                              {users.filter(u => u.role === 'technicien').length}
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
+
                             </p>
                           </div>
                         </div>
@@ -223,7 +212,7 @@ export default function Utilisateurs({ users, user }: Props) {
                               {user.name}
                             </h3>
                             <p className="text-sm text-slate-600 dark:text-slate-400 text-center mb-2">
-<<<<<<< HEAD
+
                               {user.role.nom === 'technicien' ? 'Technicien' : 'Employé'}
                             </p>
                             <Badge className={
@@ -232,16 +221,6 @@ export default function Utilisateurs({ users, user }: Props) {
                                 : 'bg-gradient-to-r from-green-500 to-emerald-500'
                             }>
                               {user.role.nom}
-=======
-                              {user.role === 'technicien' ? 'Technicien' : 'Employé'}
-                            </p>
-                            <Badge className={
-                              user.role === 'technicien' 
-                                ? 'bg-gradient-to-r from-purple-500 to-violet-500' 
-                                : 'bg-gradient-to-r from-green-500 to-emerald-500'
-                            }>
-                              {user.role}
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
                             </Badge>
                           </div>
                         ))}

@@ -5,23 +5,18 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-<<<<<<< HEAD
+
 import { Textarea } from '@/components/ui/textarea';
 import { Incident, User } from '@/types';
-=======
-import { Badge } from '@/components/ui/badge';
-import { Incident, user } from '@/types';
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
+
 import { useForm } from '@inertiajs/react';
 import { AlertCircle, ArrowLeft, CheckCircle, FileText, Lightbulb, Send } from 'lucide-react';
 
 interface Props {
     intervention: Incident;
-<<<<<<< HEAD
+
     user: User;
-=======
-    user: User
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
+
 }
 
 export default function Show({ intervention, user }: Props) {
@@ -37,13 +32,10 @@ export default function Show({ intervention, user }: Props) {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-<<<<<<< HEAD
+
             <Nav user={user} />
 
-=======
-            <Nav user={user}/>
-            
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
+
             <div className="container mx-auto px-4 py-8">
                 <div className="mb-6">
                     <Button variant="ghost" asChild>
@@ -89,7 +81,7 @@ export default function Show({ intervention, user }: Props) {
                                     </div>
 
                                     <div>
-<<<<<<< HEAD
+
                                         <Badge
                                             className={
                                                 intervention.categorie.nom === 'categorie 1'
@@ -101,11 +93,7 @@ export default function Show({ intervention, user }: Props) {
                                         >
                                             {intervention.categorie.nom}
                                         </Badge>
-=======
-                                        <Label className="text-sm text-gray-500 dark:text-gray-400">
-                                            Catégorie
-                                        </Label>
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
+
                                     </div>
 
                                     <div>

@@ -214,11 +214,9 @@ export default function Nav({user}: Props) {
                         <div className="flex items-center gap-2">
                             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                             <span className="text-sm text-gray-600 dark:text-gray-400">
-<<<<<<< HEAD
+
                                 {user.role.nom == 'technicien' ? <p>Technicien <span className="font-medium">{user.name}</span> connecté</p> : <p>Employé <span className="font-medium">{user.name}</span> connecté</p>}
-=======
-                                {user.role == 'technicien' ? <p>Technicien <span className="font-medium">{user.name}</span> connecté</p> : <p>Employé <span className="font-medium">{user.name}</span> connecté</p>}
->>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
+
                                 
                             </span>
                         </div>
