@@ -22,7 +22,7 @@ class UserController extends Controller
         if(Auth::attempt($data)){
             $request->session()->regenerate();
 
-            if(Auth::user()->role === 'admin'){
+            if(Auth::user()->role->nom === 'admin'){
                 
                return redirect()->route('admin.index'); 
             }
@@ -31,7 +31,7 @@ class UserController extends Controller
 
         return back()->withErrors([
             'email' => 'Email Incorrect'
-        ])->onlyInput('eamil');
+        ])->onlyInput('email');
     }
 
     public function logout(){

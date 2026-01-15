@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('agences', function (Blueprint $table) {
-            $table->id();
-            $table->string('nom');
-            $table->string('adresse');
-            $table->string('region');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('region')->nullable()->after('service_id');
         });
-
     }
 
     /**
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('agences');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('region');
+        });
     }
 };

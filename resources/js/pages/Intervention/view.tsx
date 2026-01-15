@@ -80,7 +80,7 @@ export default function View({ interventions, user }: Props) {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-            <Nav />
+            <Nav user={user}/>
             
             <div className="container mx-auto px-4 py-8">
                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 gap-4">
@@ -185,8 +185,8 @@ export default function View({ interventions, user }: Props) {
                                                 <div className={`p-2 ${statusConfig.bgColor} rounded-lg`}>
                                                     <StatusIcon className={`w-5 h-5 ${statusConfig.color}`} />
                                                 </div>
-                                                <Badge className={getPriorityColor(intervention.priorite)}>
-                                                    {intervention.priorite}
+                                                <Badge className={getPriorityColor(intervention.priorite.nom)}>
+                                                    {intervention.priorite.nom}
                                                 </Badge>
                                             </div>
                                             <CardTitle className="text-lg capitalize line-clamp-2">

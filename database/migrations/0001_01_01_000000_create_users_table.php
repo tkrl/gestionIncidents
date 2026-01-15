@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Role;
 use App\Models\Agence;
 use App\Models\Service;
 use Illuminate\Support\Facades\Schema;
@@ -15,22 +16,22 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('matricule');
+            $table->string('matricule')->nullable();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('telephone')->unique();
+            $table->string('telephone')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('role')->default('user');
-            $table->foreignIdFor(Agence::class)->constrained();
-            $table->foreignIdFor(Service::class)->constrained();
-            $table->rememberToken();
+            $table->string('password')->nullable();
+            $table->foreignIdFor(Role::class)->default(1)->nullable();
+            $table->foreignIdFor(Agence::class)->nullable();
+            $table->foreignIdFor(Service::class)->nullable();
+            $table->rememberToken()->nullable();
             $table->timestamps();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
-            $table->string('token');
+            $table->string('token')->nullable();
             $table->timestamp('created_at')->nullable();
         });
 
@@ -39,8 +40,8 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->index();
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
+            $table->longText('payload')->nullable();
+            $table->integer('last_activity')->index()->nullable();
         });
     }
 

@@ -2,7 +2,7 @@ import Nav from '@/components/Nav'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Incident } from '@/types'
+import { Incident, User } from '@/types'
 import { Link, useForm } from '@inertiajs/react'
 import { 
   Calendar, 
@@ -11,15 +11,16 @@ import {
   CheckCircle, 
   ArrowLeft,
   Image as ImageIcon,
-  User,
+  User as Userlucide,
   Folder
 } from 'lucide-react'
 
 interface Props {
   incident: Incident,
+  user: User
 }
 
-export default function Show({ incident }: Props) {
+export default function Show({ incident, user }: Props) {
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case 'elevée': return 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 border-red-200 dark:border-red-800';
@@ -38,7 +39,7 @@ export default function Show({ incident }: Props) {
     }
   };
 
-  const { data, setData, put, processing, errors } = useForm()
+  const { put, processing, errors } = useForm()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -47,7 +48,7 @@ export default function Show({ incident }: Props) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      <Nav />
+      <Nav user={user}/>
       
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
@@ -76,9 +77,9 @@ export default function Show({ incident }: Props) {
                       </CardDescription>
                     </div>
                     <div className="flex gap-2">
-                      <Badge className={`${getPriorityColor(incident.priorite)} border`}>
+                      <Badge className={`${getPriorityColor(incident.priorite?.nom || '')} border`}>
                         <AlertTriangle className="w-3 h-3 mr-1" />
-                        {incident.priorite}
+                        {incident.priorite?.nom || 'N/A'}
                       </Badge>
                       <Badge className={getStatusColor(incident.statut)}>
                         {incident.statut}
@@ -109,7 +110,7 @@ export default function Show({ incident }: Props) {
                   {/* Description */}
                   <div className="mb-8">
                     <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
-                      <User className="w-5 h-5" />
+                      <Userlucide className="w-5 h-5" />
                       Description de l'incident
                     </h3>
                     <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
@@ -195,8 +196,8 @@ export default function Show({ incident }: Props) {
                       <div className="space-y-2">
                         <div className="flex justify-between">
                           <span className="text-sm text-gray-600 dark:text-gray-400">Priorité:</span>
-                          <Badge className={getPriorityColor(incident.priorite)}>
-                            {incident.priorite}
+                          <Badge className={getPriorityColor(incident.priorite?.nom || '')}>
+                            {incident.priorite?.nom || 'N/A'}
                           </Badge>
                         </div>
                         <div className="flex justify-between">

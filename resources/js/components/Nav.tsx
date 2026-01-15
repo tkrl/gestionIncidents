@@ -7,14 +7,18 @@ import {
   Home, 
   LogOut, 
   Bell, 
-  User, 
+  User as Userlucide, 
   Settings,
   ShieldAlert
 } from 'lucide-react'
 import { useState } from 'react'
 import { Badge } from './ui/badge'
+import { User } from '@/types'
 
-export default function Nav() {
+type Props = {
+    user: User
+}
+export default function Nav({user}: Props) {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const { post, processing } = useForm()
 
@@ -61,7 +65,7 @@ export default function Nav() {
                                 href='/profile' 
                                 className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
                             >
-                                <User className="w-4 h-4" />
+                                <Userlucide className="w-4 h-4" />
                                 Profil
                             </Link>
                             
@@ -148,7 +152,7 @@ export default function Nav() {
                                     className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                                     onClick={() => setIsMenuOpen(false)}
                                 >
-                                    <User className="w-4 h-4" />
+                                    <Userlucide className="w-4 h-4" />
                                     Profil
                                 </Link>
                                 
@@ -210,12 +214,11 @@ export default function Nav() {
                         <div className="flex items-center gap-2">
                             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                             <span className="text-sm text-gray-600 dark:text-gray-400">
-                                Connecté en tant qu'utilisateur
+                                {user.role.nom == 'technicien' ? <p>Technicien <span className="font-medium">{user.name}</span> connecté</p> : <p>Employé <span className="font-medium">{user.name}</span> connecté</p>}
+                                
                             </span>
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-500">
-                            Dernière connexion: Aujourd'hui à 14:30
-                        </div>
+
                     </div>
                 </div>
             </div>

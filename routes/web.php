@@ -6,10 +6,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\IncidentController;
+use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\InterventionController;
 
+Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
 
 Route::resource('/incident', IncidentController::class)->middleware(['auth', 'verified']);
+
+
+
 Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('home');
@@ -22,7 +29,7 @@ Route::middleware('guest')->controller(UserController::class)->group(function(){
 
 Route::post('/logout', [UserController::class,'logout'])->middleware('auth', 'verified')->name('logout');
 
-Route::controller(InterventionController::class)->middleware('auth', 'verified')->group(function () {
+Route::controller(InterventionController::class)->middleware('auth')->group(function () {
     Route::put('/incident/{incident}/Encour', 'Encour')->name('Encour');
     Route::get('/intervention/view', 'view')->name('Intervention.view');
     Route::get('/intervention/view/{incident}', 'show')->name('Intervention.show');
@@ -31,9 +38,14 @@ Route::controller(InterventionController::class)->middleware('auth', 'verified')
     Route::put('/intervention/cloture/{incident}', 'cloturer')->name('Intervention.cloturer');
 });
 
-Route::controller(AdminController::class)->middleware('auth', 'verified')->name('admin.')->group(function (){
+Route::controller(AdminController::class)->middleware('auth')->name('admin.')->group(function (){
     Route::get('/admin', 'index')->name('index');
     Route::get('/admin/utilisateur', 'utilisateur')->name('utilisateur');
     Route::get('/admin/statistique', 'statistique')->name('statistique');
     Route::get('/admin/incidents', 'incidents')->name('incidents');
+});
+
+Route::prefix('/users')->controller(AdminUserController::class)->middleware('auth')->name('users.')->group(function (){
+    Route::get('/register','register')->name('register');
+    Route::post('/register','signUp')->name('signup');
 });

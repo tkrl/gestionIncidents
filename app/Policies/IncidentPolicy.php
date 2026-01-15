@@ -13,7 +13,7 @@ class IncidentPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->role === 'technicien';
+        return $user->role->nom === 'technicien';
     }
 
     /**
@@ -21,7 +21,7 @@ class IncidentPolicy
      */
     public function view(User $user, Incident $incident): bool
     {
-        return $user->role === 'technicien'; 
+        return $user->role->nom === 'technicien'; 
     }
 
     /**
@@ -29,7 +29,7 @@ class IncidentPolicy
      */
     public function create(User $user): bool
     {
-        return $user->role !== 'technicien'; 
+        return $user->role->nom !== 'technicien'; 
     }
 
     /**

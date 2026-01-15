@@ -3,16 +3,17 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { Incident } from '@/types';
+import { Incident, User } from '@/types';
 import { useForm } from '@inertiajs/react';
 import { ArrowLeft, CheckCircle, FileText, Lightbulb, ThumbsUp, Calendar } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface Props {
     intervention: Incident;
+    user: User
 }
 
-export default function Cloture({ intervention }: Props) {
+export default function Cloture({ intervention, user }: Props) {
     const { put, processing } = useForm();
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -31,7 +32,7 @@ export default function Cloture({ intervention }: Props) {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-            <Nav />
+            <Nav user={user}/>
             
             <div className="container mx-auto px-4 py-8">
                 <div className="mb-6">
@@ -84,13 +85,13 @@ export default function Cloture({ intervention }: Props) {
                                 <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
                                     <div className="flex items-center gap-3">
                                         <div className="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
-                                            <Badge className={getPriorityColor(intervention.priorite)}>
-                                                {intervention.priorite}
+                                            <Badge className={getPriorityColor(intervention.priorite.nom)}>
+                                                {intervention.priorite.nom}
                                             </Badge>
                                         </div>
                                         <div>
                                             <p className="text-sm text-gray-500 dark:text-gray-400">Priorité</p>
-                                            <p className="font-medium capitalize">{intervention.priorite}</p>
+                                            <p className="font-medium capitalize">{intervention.priorite.nom}</p>
                                         </div>
                                     </div>
                                 </div>

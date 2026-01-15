@@ -13,8 +13,8 @@ class AdminController extends Controller
     //
     public function index (){
 
-        $incidents = Incident::with('categorie')->with(['technicien','user'])->get();
-        $users = User::all();
+        $incidents = Incident::with(['categorie','priorite'])->with(['technicien','user'])->get();
+        $users = User::with('role')->get();
 
         return Inertia::render('dashboard', [
             'incidents' => $incidents,
@@ -24,7 +24,7 @@ class AdminController extends Controller
     }
 
     public function utilisateur(){
-        $users = User::all();
+        $users = User::with('role')->get();
 
         return Inertia::render("admin/utilisateur", [
             'users' => $users,
@@ -32,8 +32,8 @@ class AdminController extends Controller
         ]);
     }
     public function statistique(){
-        $users = User::all();
-        $incidents = Incident::with('categorie')->with(['technicien','user'])->get();
+        $users = User::with('role')->get();
+        $incidents = Incident::with(['categorie','priorite'])->with(['technicien','user'])->get();
 
         return Inertia::render("admin/statistique", [
             'users' => $users,
@@ -44,7 +44,7 @@ class AdminController extends Controller
     }
 
     public function incidents(){
-        $incidents = Incident::with('categorie')->with(['technicien','user'])->get();
+        $incidents = Incident::with(['categorie','priorite'])->with(['technicien','user'])->get();
 
 
         return Inertia::render("admin/incident", [
@@ -52,25 +52,6 @@ class AdminController extends Controller
             'user' => Auth::user()
 
         ]);
-    }
-    public function create(){
-        //
-    }
-
-    public function strore(Request $request){
-
-    }
-
-    public function edit(Incident $incident){
-
-    }
-
-    public function update(Request $request, Incident $incident){
-
-    }
-
-    public function destroy(Incident $incident){
-
     }
     
 }

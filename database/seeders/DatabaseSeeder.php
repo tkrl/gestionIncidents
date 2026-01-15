@@ -2,11 +2,13 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Role;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use App\Models\Agence;
 use App\Models\Service;
 use App\Models\Incident;
+use App\Models\Priorite;
 use App\Models\Categorie;
 use Illuminate\Database\Seeder;
 
@@ -20,14 +22,24 @@ class DatabaseSeeder extends Seeder
          // User::factory(10)->create();
 
          Agence::create([
-            'code' => ' DD6SAI',
-            'nom' => fake()->name(),
-            'adresse' => fake()->address()
+            'nom' => fake()->title(),
+            'adresse' => fake()->address(),
+            'region' => 'CENTRE'
         ]);
 
         Service::create([
-            'nom' => 'HDDS8S',
-            'description' => fake()->sentence(2),
+            'nom' => fake()->title(),
+            'agence_id' => 1,
+        ]);
+
+        Role::create([
+            'nom' => 'user',
+        ]);
+        Role::create([
+            'nom' => 'technicien',
+        ]);
+        Role::create([
+            'nom' => 'admin',
         ]);
 
         User::factory()->create([
@@ -37,8 +49,10 @@ class DatabaseSeeder extends Seeder
             'telephone' => '8397278',
             'password' => '0000',
             'agence_id' => 1,
-            'service_id' =>1
-        ],);
+            'service_id' =>1,
+            'role_id' => 1
+        ]);
+
         User::factory()->create([
             'matricule' => '22TC6G',
             'name' => 'Fabien Bone',
@@ -47,8 +61,9 @@ class DatabaseSeeder extends Seeder
             'password' => '0000',
             'agence_id' => 1,
             'service_id' =>1,
-            'role' => 'technicien'
-        ],);
+            'role_id' => 1
+        ]);
+
         User::factory()->create([
             'matricule' => '55AD2R',
             'name' => 'Romain Franck',
@@ -57,7 +72,7 @@ class DatabaseSeeder extends Seeder
             'password' => '0000',
             'agence_id' => 1,
             'service_id' =>1,
-            'role' => 'admin'
+            'role_id' => 1
         ]);
 
 
@@ -67,7 +82,12 @@ class DatabaseSeeder extends Seeder
   
             ]);
         }     
-
+        for($i=1 ; $i <= 4; $i++){
+            Priorite::create([
+                'nom' => "priorite $i",
+  
+            ]);
+        }  
 
         Incident::factory(20)->create();
     }

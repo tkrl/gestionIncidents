@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Role;
 use App\Models\Agence;
 use App\Models\Service;
 use App\Models\Incident;
@@ -29,7 +30,8 @@ class User extends Authenticatable
         'telephone',
         'password',
         'agence_id',
-        'service_id'
+        'service_id',
+        'role_id'
     ];
 
     /**
@@ -64,7 +66,11 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Service::class);
     }
-
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+        
     public function incidents(): HasMany
     {
         return $this->hasMany(Incident::class, 'user_id');
@@ -74,4 +80,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Incident::class, 'technicien_id');
     }
+
+
 }

@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\Piece;
+use App\Models\Priorite;
 use App\Models\Categorie;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -19,7 +20,7 @@ return new class extends Migration
             $table->string('titre');
             $table->string('slug')->unique();
             $table->string('description');
-            $table->string('priorite');
+            $table->foreignIdFor(Priorite::class)->constrained();
             $table->string('image')->nullable();
             $table->foreignIdFor(User::class, 'user_id')->constrained();
             $table->foreignIdFor(User::class, 'technicien_id')->nullable()->constrained();

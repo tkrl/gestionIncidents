@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { NativeSelect } from '@/components/ui/native-select';
 import { Textarea } from '@/components/ui/textarea';
-import { Categorie, Categories, Incident, Priorite } from '@/types';
+import { Categorie,  Incident, Priorite, User } from '@/types';
 import { useForm } from '@inertiajs/react';
 import { ArrowLeft, Image as ImageIcon, Upload } from 'lucide-react';
 import { useState } from 'react';
@@ -12,20 +12,22 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 interface Props {
     incident: Incident
-    categories: Categories
+    categories: Categorie[]
+    priorites: Priorite[]
+    user: User
 }
 
-export default function Edit({ incident, categories }: Props) {
-    const { data, setData, put, processing, errors } = useForm({
+export default function Edit({ incident, categories, user, priorites }: Props) {
+    const { data, setData, post, processing, errors } = useForm({
         titre: incident.titre,
         description: incident.description,
-        priorite: incident.priorite,
+        priorite_id: incident.priorite_id,
         categorie_id: incident.categorie_id,
-        image: null
+        image: null as File | null,
+        _method: 'PUT'
     });
 
     const [previewUrl, setPreviewUrl] = useState<string>(incident.image ? `${incident.image}` : '');
-    const Priorites = ['elevée', 'moyenne', 'basse'];
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -41,12 +43,12 @@ export default function Edit({ incident, categories }: Props) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(`/incident/${incident.id}`);
+        post(`/incident/${incident.id}`);
     };
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-            <Nav />
+            <Nav user={user}/>
             
             <div className="container mx-auto px-4 py-8">
                 <Button variant="ghost" className="mb-6" asChild>
@@ -108,19 +110,19 @@ export default function Edit({ incident, categories }: Props) {
                                             </Label>
                                             <NativeSelect
                                                 id="priorite"
-                                                value={data.priorite}
-                                                onChange={(e) => setData('priorite', e.target.value as Priorite)}
+                                                value={data.priorite_id}
+                                                onChange={(e) => setData('priorite_id', parseInt(e.target.value))}
                                                 className="mt-2"
                                             >
                                                 <option value="">Sélectionnez une priorité</option>
-                                                {Priorites.map((priorite) => (
-                                                    <option key={priorite} value={priorite}>
-                                                        {priorite.charAt(0).toUpperCase() + priorite.slice(1)}
+                                                {priorites.map((priorite) => (
+                                                    <option key={priorite.id} value={priorite.id}>
+                                                        {priorite.nom.charAt(0).toUpperCase() + priorite.nom.slice(1)}
                                                     </option>
                                                 ))}
                                             </NativeSelect>
-                                            {errors.priorite && (
-                                                <p className="mt-2 text-sm text-red-600">{errors.priorite}</p>
+                                            {errors.priorite_id && (
+                                                <p className="mt-2 text-sm text-red-600">{errors.priorite_id}</p>
                                             )}
                                         </div>
                                         
@@ -158,6 +160,8 @@ export default function Edit({ incident, categories }: Props) {
                                                     <div className="flex flex-col items-center">
                                                         <Upload className="w-12 h-12 text-gray-400 mb-4" />
                                                         <Label htmlFor="image-upload" className="cursor-pointer">
+                                                        <div className='w-50  bg-black text-white text-center rounded-md py-3 hover:opacity-85'>Selectionner une image</div>
+                                                            
                                                             <Input
                                                                 id="image-upload"
                                                                 type="file"
@@ -165,10 +169,7 @@ export default function Edit({ incident, categories }: Props) {
                                                                 accept="image/*"
                                                                 className="hidden"
                                                             />
-                                                            <Button type="button" variant="outline">
-                                                                <ImageIcon className="w-4 h-4 mr-2" />
-                                                                Choisir une image
-                                                            </Button>
+
                                                         </Label>
                                                         <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                                                             PNG, JPG, GIF jusqu'à 5MB
@@ -193,7 +194,7 @@ export default function Edit({ incident, categories }: Props) {
                                                         className="w-full h-64 object-cover"
                                                     />
                                                     <div className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
-                                                        {incident.image ? 'Image actuelle' : 'Nouvelle image'}
+                                                        {`${incident.image}` ? 'Image actuelle' : 'Nouvelle image'}
                                                     </div>
                                                 </div>
                                             </div>

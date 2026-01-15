@@ -18,6 +18,11 @@ interface chartData {
     desktop: number
      
   }
+
+  export interface Role {
+    id: number,
+    nom: string
+}
 export interface User {
     id: number;
     matricule: string;
@@ -30,7 +35,9 @@ export interface User {
     updated_at: string;
     agence_id: number;
     service_id: number;
-    role: string;
+    region: string;
+    role: Role;
+    role_id: number
     [key: string]: unknown; // This allows for additional properties..
     
 }
@@ -38,12 +45,7 @@ export interface User {
 
 
 
-type Priorite = 'elevée' | 'moyenne' |'basse'
 
-type category = {
-    id: number
-    nom: string
-}
 export interface Incident {
     [key: string]: unknown; // This allows for additional properties..
     id: number;
@@ -52,10 +54,11 @@ export interface Incident {
     description: string
     statut: string
     priorite: Priorite
+    priorite_id: number
     image: string
     user_id: number
     technicien_id: number
-    categorie: category;
+    categorie: Categorie
     categorie_id: number
     piece_id?: number
     created_at: string
@@ -72,6 +75,11 @@ export interface Incidents {
 }
 
 export interface Categorie {
+    id: number,
+    nom: string
+}
+
+export interface Priorite {
     id: number,
     nom: string
 }

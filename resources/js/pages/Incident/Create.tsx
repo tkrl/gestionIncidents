@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { NativeSelect } from '@/components/ui/native-select';
 import { Textarea } from '@/components/ui/textarea';
-import { Categories, Incident } from '@/types';
+import { Categorie, Incident, Priorite, User } from '@/types';
 import { useForm } from '@inertiajs/react';
 import { ArrowLeft, Upload, AlertCircle, HelpCircle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,19 +12,20 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface Props {
     incident: Incident
-    categories: Categories
+    categories: Categorie[]
+    priorites: Priorite[]
+    user: User
 }
 
-export default function Create({ categories, incident }: Props) {
+export default function Create({ categories, incident, user, priorites }: Props) {
     const { data, setData, post, processing, errors } = useForm({
         titre: '',
         description: '',
-        priorite: 'moyenne',
+        priorite_id: priorites.length > 0 ? priorites[0].id : 1,
         categorie_id: categories.length > 0 ? categories[0].id : 1,
         image: null
     });
 
-    const Priorites = ['elevée', 'moyenne', 'basse'];
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -35,7 +36,7 @@ export default function Create({ categories, incident }: Props) {
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-            <Nav />
+            <Nav user={user} />
             
             <div className="container mx-auto px-4 py-8">
                 <div className="max-w-4xl mx-auto">
@@ -119,18 +120,18 @@ export default function Create({ categories, incident }: Props) {
                                             </Label>
                                             <NativeSelect
                                                 id="priorite"
-                                                value={data.priorite}
-                                                onChange={e => setData('priorite', e.target.value)}
+                                                value={data.priorite_id}
+                                                onChange={e => setData('priorite_id',parseInt(e.target.value))}
                                                 className="mt-2"
                                             >
-                                                {Priorites.map((priorite) => (
-                                                    <option key={priorite} value={priorite}>
-                                                        {priorite.charAt(0).toUpperCase() + priorite.slice(1)}
+                                                {priorites.map((priorite) => (
+                                                    <option key={priorite.id} value={priorite.id}>
+                                                        {priorite.nom.charAt(0).toUpperCase() + priorite.nom.slice(1)}
                                                     </option>
                                                 ))}
                                             </NativeSelect>
-                                            {errors.priorite && (
-                                                <p className="mt-2 text-sm text-red-600">{errors.priorite}</p>
+                                            {errors.priorite_id && (
+                                                <p className="mt-2 text-sm text-red-600">{errors.priorite_id}</p>
                                             )}
                                         </div>
 
@@ -169,6 +170,7 @@ export default function Create({ categories, incident }: Props) {
                                                         <Upload className="w-6 h-6 text-gray-500 group-hover:text-blue-500" />
                                                     </div>
                                                     <Label htmlFor="image-upload" className="cursor-pointer">
+                                                        <div className='w-50  bg-black text-white text-center rounded-md py-3 hover:opacity-85'>Selectionner une image</div>
                                                         <Input
                                                             id="image-upload"
                                                             type="file"
@@ -176,9 +178,7 @@ export default function Create({ categories, incident }: Props) {
                                                             accept="image/*"
                                                             className="hidden"
                                                         />
-                                                        <Button type="button" variant="outline">
-                                                            Ajouter une capture d'écran
-                                                        </Button>
+
                                                     </Label>
                                                     <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">
                                                         Une image peut aider à comprendre le problème plus rapidement

@@ -27,7 +27,7 @@ class InterventionController extends Controller
 
     public function viewAny(){
 
-        $interventions = Incident::with('categorie')->where('technicien_id', Auth::user()->id)->where('statut','<>', 'En cours')->get();
+        $interventions = Incident::with(['categorie','priorite'])->where('technicien_id', Auth::user()->id)->where('statut','<>', 'En cours')->get();
 
         return Inertia::render('Intervention/view', [
             'interventions' => $interventions
@@ -36,19 +36,19 @@ class InterventionController extends Controller
 
     public function view(){
 
-        $interventions = Incident::with('categorie')->where('technicien_id', Auth::user()->id)->get();
+        $interventions = Incident::with(['categorie','priorite'])->where('technicien_id', Auth::user()->id)->get();
 
         return Inertia::render('Intervention/view', [
             'interventions' => $interventions,
             'user' => Auth::user()
         ]);
-
     }
 
     public function show(Incident $incident){
 
         return Inertia::render('Intervention/show', [
-            'intervention' => $incident
+            'intervention' => $incident->load(['categorie','priorite']),
+            'user' => Auth::user()
         ]);
     }
 
@@ -73,7 +73,8 @@ class InterventionController extends Controller
     public function cloture(Incident $incident){
 
         return Inertia::render('Intervention/cloture', [
-            'intervention' => $incident
+            'intervention' => $incident->load(['categorie','priorite']),
+            'user' => Auth::user()
         ]);
     }
 
@@ -92,7 +93,7 @@ class InterventionController extends Controller
         return redirect()->route('incident.index')->with('success', 'Intervention Terminé');
     }
 
-    public function rejeter(Incident $incident){
+    public function rejeter(Incident $incident, Request $request){
         $data = $request->validate([
             'statut' => 'string',
             'ended_at' => 'string'
