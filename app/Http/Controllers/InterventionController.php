@@ -47,7 +47,11 @@ class InterventionController extends Controller
     public function show(Incident $incident){
 
         return Inertia::render('Intervention/show', [
+<<<<<<< HEAD
             'intervention' => $incident->load(['categorie','priorite']),
+=======
+            'intervention' => $incident,
+>>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
             'user' => Auth::user()
         ]);
     }
@@ -73,7 +77,11 @@ class InterventionController extends Controller
     public function cloture(Incident $incident){
 
         return Inertia::render('Intervention/cloture', [
+<<<<<<< HEAD
             'intervention' => $incident->load(['categorie','priorite']),
+=======
+            'intervention' => $incident,
+>>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
             'user' => Auth::user()
         ]);
     }

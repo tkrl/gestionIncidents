@@ -47,8 +47,13 @@ export default function Dashboard({ incidents, users, user }: Props) {
   const incidentsTermines = incidents.filter(i => i.statut === 'Terminé').length
   
   const totalUsers = users.length
+<<<<<<< HEAD
   const techniciens = users.filter(u => u.role.nom === 'technicien').length
   const employes = users.filter(u => u.role.nom === 'user').length
+=======
+  const techniciens = users.filter(u => u.role === 'technicien').length
+  const employes = users.filter(u => u.role === 'user').length
+>>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
   
   // Taux de résolution
   const resolutionRate = totalIncidents > 0 
@@ -62,7 +67,11 @@ export default function Dashboard({ incidents, users, user }: Props) {
 
   // Incidents urgents
   const urgentIncidents = incidents
+<<<<<<< HEAD
     .filter(i => i.priorite.nom === 'elevée' && i.statut !== 'Terminé')
+=======
+    .filter(i => i.priorite === 'elevée' && i.statut !== 'Terminé')
+>>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
     .slice(0, 3)
 
   return (
@@ -273,7 +282,11 @@ export default function Dashboard({ incidents, users, user }: Props) {
                                   </p>
                                   <div className="flex items-center gap-2 text-xs">
                                     <Badge variant="outline" className="capitalize border-red-200 dark:border-red-800">
+<<<<<<< HEAD
                                       {incident.priorite.nom}
+=======
+                                      {incident.priorite}
+>>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
                                     </Badge>
                                     <span className="text-slate-600 dark:text-slate-400">
                                       {incident.categorie.nom}
@@ -330,7 +343,11 @@ export default function Dashboard({ incidents, users, user }: Props) {
                                   </p>
                                   <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
                                     <Badge variant="outline" className="capitalize">
+<<<<<<< HEAD
                                       {incident.priorite.nom}
+=======
+                                      {incident.priorite}
+>>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
                                     </Badge>
                                     <span>•</span>
                                     <span>{incident.categorie.nom}</span>

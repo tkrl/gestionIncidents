@@ -61,7 +61,10 @@ class IncidentController extends Controller
 
         return Inertia::render('Incident/Create',[
             'categories' => $categories,
+<<<<<<< HEAD
             'priorites' => $priorites,
+=======
+>>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
             'user' => $user
         ]);
     } 
@@ -111,7 +114,11 @@ class IncidentController extends Controller
         
         return Inertia::render('Incident/Show', [
             'incident' => $incident,
+<<<<<<< HEAD
             'user' => Auth::user(),
+=======
+            'user' => Auth::user()
+>>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
         ]);
     }
     }
@@ -124,6 +131,7 @@ class IncidentController extends Controller
  
         if(Auth::user()->can('update', $incident)){
             $categories = Categorie::all();
+<<<<<<< HEAD
             $priorites = Priorite::all();
             $incident->load(['categorie', 'priorite']); 
             
@@ -132,6 +140,14 @@ class IncidentController extends Controller
                'categories' => $categories,
                'priorites' => $priorites,
                 'user' => Auth::user()->load('role'),
+=======
+            $incident->with('categorie'); 
+   
+           return Inertia::render('Incident/Edit', [
+               'incident' => $incident,
+               'categories' => $categories,
+                'user' => Auth::user()
+>>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
            ]);
         };
 

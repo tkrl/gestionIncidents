@@ -110,7 +110,11 @@ export default function Index({ incidents, user }: Props) {
                                         Liste des incidents nécessitant une attention
                                     </CardDescription>
                                 </div>
+<<<<<<< HEAD
                                 {user.role.nom == 'user' &&
+=======
+                                {user.role == 'user' &&
+>>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
                                 <Tabs defaultValue="all" className="w-auto" onValueChange={setActiveFilter}>
                                     <TabsList>
                                         <TabsTrigger value="all">Tous</TabsTrigger>

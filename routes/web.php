@@ -10,9 +10,12 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\InterventionController;
 
+<<<<<<< HEAD
 Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('auth.google.redirect');
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('auth.google.callback');
 
+=======
+>>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
 Route::resource('/incident', IncidentController::class)->middleware(['auth', 'verified']);
 
 

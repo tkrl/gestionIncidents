@@ -4,7 +4,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { NativeSelect } from '@/components/ui/native-select';
 import { Textarea } from '@/components/ui/textarea';
+<<<<<<< HEAD
 import { Categorie, Incident, Priorite, User } from '@/types';
+=======
+import { Categories, Incident, User } from '@/types';
+>>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
 import { useForm } from '@inertiajs/react';
 import { ArrowLeft, Upload, AlertCircle, HelpCircle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,12 +16,20 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface Props {
     incident: Incident
+<<<<<<< HEAD
     categories: Categorie[]
     priorites: Priorite[]
     user: User
 }
 
 export default function Create({ categories, incident, user, priorites }: Props) {
+=======
+    categories: Categories
+    user: User
+}
+
+export default function Create({ categories, incident, user }: Props) {
+>>>>>>> 338b8d603abcd8a562f42316f421d5fc9f323762
     const { data, setData, post, processing, errors } = useForm({
         titre: '',
         description: '',
@@ -176,7 +188,7 @@ export default function Create({ categories, incident, user, priorites }: Props)
                                                             type="file"
                                                             onChange={(e) => setData("image", e.target.files?.[0] || null)}
                                                             accept="image/*"
-                                                            className="hidden"
+                                                            className="hidde"
                                                         />
 
                                                     </Label>
